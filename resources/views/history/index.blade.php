@@ -1,53 +1,39 @@
 @extends('layouts.master')
 
-@section('title', 'Working Order')
-@section('header', 'Working Order')
-@section('breadcrumb', 'Working Order')
+@section('title', 'History')
+@section('header', 'History')
+@section('breadcrumb', 'History')
 @section('container-fluid')
 
 
 
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <i class="fa-solid fas fa-plus"></i> Add Working Order
+        <i class="fa-solid fas fa-plus"></i> Add History
     </button>
-
-
     <div class="card mt-3">
         <div class="card-body">
             <div id="example_wrapper">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <th>No</th>
-                        <th>User</th>
-                        <th>Working Order</th>
-                        <th>Status</th>
+                        <th>Pengerjaan</th>
                         <th>Action</th>
                     </thead>
                     <tbody>
 
-                        @foreach ($workingOrders as $p)
+                        @foreach ($historys as $p)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $p->user->name }}</td>
-                                <td><a href="{{ url('working-order/pengerjaan/' . $p->no_working_order) }}"
-                                        style="text-decoration: none;">{{ $p->no_working_order }}</a></td>
-                                <td>
-                                    @if ($p->status == 'pending')
-                                        <span class="badge bg-danger">Belum Dikerjakan</span>
-                                    @elseif ($p->status == 'proses')
-                                        <span class="badge bg-warning">Sedang Dikerjakan</span>
-                                    @elseif ($p->status == 'selesai')
-                                        <span class="badge bg-success">Selesai</span>
-                                    @endif
+                                <td>{{ $p->pengerjaan->no_working_order }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-warning btn-sm mr-1" data-bs-toggle="modal"
-                                            data-bs-target="#btn-edit{{ $p->no_working_order }}">
+                                            data-bs-target="#btn-edit{{ $p->id }}">
                                             <i class="fa fa-edit"></i> Edit
                                         </button>
 
                                         <a href="#" id="btn-hapus" class="btn btn-danger btn-sm"
-                                            data-id="{{ $p->no_working_order }}">
+                                            data-id="{{ $p->id }}">
                                             <i class="fa-solid fas fa-trash"></i> Delete
                                         </a>
                                     </div>
@@ -103,69 +89,54 @@
         </div>
     </div>
 
-
     <!-- Modal Insert Data -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel">Working Orders</h5>
+                    <h5 class="modal-title text-center" id="exampleModalLabel">History</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
-                    <form action="{{ url('/working-order') }}" method="post">
+                    <form action="{{ url('/teknisi') }}" method="post">
                         @csrf
-                        <div class="input-group mb-3">
-                            @php
-                                // Mendapatkan tanggal bulan tahun saat ini dalam format dmy (ddmmyy)
-                                $currentDate = now()->format('ymd');
-                                
-                                // Mendapatkan nomor terakhir dari database atau default ke 0 jika tidak ada
-                                $lastNumber = intval(DB::table('working_orders')->max('no_working_order')) + 1;
-                                
-                                // Format nomor menjadi 3 digit dengan leading zeros
-                                $formattedNumber = sprintf('%03d', $lastNumber);
-                                
-                                $proposedNoWorkingOrder = 'W' . $formattedNumber . $currentDate;
-                                
-                                // Memeriksa apakah nomor yang diusulkan sudah ada dalam basis data
-                                $isUnique = false;
-                                while (!$isUnique) {
-                                    $existingOrder = DB::table('working_orders')
-                                        ->where('no_working_order', $proposedNoWorkingOrder)
-                                        ->first();
-                                    if ($existingOrder) {
-                                        $lastNumber++;
-                                        $formattedNumber = sprintf('%03d', $lastNumber);
-                                        $proposedNoWorkingOrder = 'W' . $formattedNumber . $currentDate;
-                                    } else {
-                                        $isUnique = true;
-                                    }
-                                }
-                            @endphp
-                            <input type="text" readonly
-                                class="form-control @error('no_working_order') is-invalid @enderror" name="no_working_order"
-                                value="{{ $proposedNoWorkingOrder }}" placeholder="No Working Order">
+                        <div class="input-group mb-3" >
+                            <input type="text" class="form-control @error('nama_teknisi') is-invalid @enderror" name="nama_teknisi"
+                                value="{{ old('nama_teknisi') }}" placeholder="Nama Teknisi">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
                                 </div>
                             </div>
+                            @error('nama_teknisi')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
-
-                        <div class="input-group mb-3" hidden>
-                            @php
-                                $user_id = Auth::user()->id;
-                            @endphp
-                            <input type="text" class="form-control @error('user_id') is-invalid @enderror" name="user_id"
-                                value="{{ $user_id }}" placeholder="User ID">
+                        <div class="input-group mb-3" >
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                                value="{{ old('email') }}" placeholder="Email">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
                                 </div>
                             </div>
-                            @error('user_id')
+                            @error('email')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="input-group mb-3" >
+                            <input type="text" class="form-control @error('kontak') is-invalid @enderror" name="kontak"
+                                value="{{ old('kontak') }}" placeholder="Kontak">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                            @error('kontak')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -184,7 +155,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Modal Detail Data Pengeluaran -->
     {{-- <div class="modal fade " id="detailModal" tabindex="-1" aria-labelledby="modalDetailLabel" aria-hidden="true">
@@ -267,7 +238,7 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location = "/working-order/delete/" + link;
+                    window.location = "/alat/delete/" + link;
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',

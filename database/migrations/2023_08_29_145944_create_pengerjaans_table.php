@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('no_working_order');
-            $table->foreignId('alat_id')->constrained('alats')->onDelete('cascade');
+            $table->string('unit_engine',100);
+            $table->string('serial_number',100);
             $table->foreignId('teknisi_id')->constrained('teknisis')->onDelete('cascade');
             $table->foreignId('user_admin_id')->constrained('users')->onDelete('cascade');
             $table->string('deskripsi_pekerjaan')->nullable();
@@ -23,8 +24,7 @@ return new class extends Migration
             $table->string('keterangan')->nullable();
             $table->date('tanggal_masuk')->nullable();
             $table->date('tanggal_update')->nullable();
-            $table->date('tanggal_selesai')->nullable();
-            $table->enum('status', ['belum konfirmasi', 'sedang dikerjakan', 'selesai'])->nullable();
+            $table->enum('status', ['belum konfirmasi', 'sedang dikerjakan','pending', 'selesai'])->nullable();
             $table->timestamps();
             $table->foreign('no_working_order')->references('no_working_order')->on('working_orders')->onDelete('cascade');
         });

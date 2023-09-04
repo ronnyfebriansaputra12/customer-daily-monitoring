@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alat;
-use App\Models\DeskirpsiPekerjaan;
-use App\Models\Pengerjaan;
-use App\Models\Teknisi;
 use App\Models\User;
+use App\Models\History;
+use App\Models\Teknisi;
+use App\Models\Pengerjaan;
 use App\Models\WorkingOrder;
 use Illuminate\Http\Request;
+use App\Models\DeskirpsiPekerjaan;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PengerjaanController extends Controller
 {
@@ -36,7 +38,8 @@ class PengerjaanController extends Controller
     {
         $validatedData = $request->validate([
             'no_working_order' => 'required',
-            'alat_id' => 'required|integer',
+            'unit_engine' => 'required',
+            'serial_number' => 'required',
             'teknisi_id' => 'required|integer',
             'user_id' => 'required|integer',
             'user_admin_id' => 'required|integer',
@@ -61,6 +64,7 @@ class PengerjaanController extends Controller
         $deskripsi_pekerjaan = [
             'deskripsi_pekerjaan' => $request->deskripsi_pekerjaan,
             'pengerjaan_id' => $pengerjaan_id, // Assign the pengerjaan_id
+            'keterangan' => $request->keterangan
         ];
 
         DeskirpsiPekerjaan::create($deskripsi_pekerjaan);
@@ -73,9 +77,10 @@ class PengerjaanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pengerjaan $pengerjaan)
+    public function show($id)
     {
-        //
+        $pengerjaan = Pengerjaan::where('id',$id)->get();
+        return view('pengerjaan.detail',compact('pengerjaan'));
     }
 
     /**
@@ -86,7 +91,7 @@ class PengerjaanController extends Controller
         $pengerjaans = $pengerjaan;
         $alats = Alat::all();
         $teknisis = Teknisi::all();
-        return view('pengerjaan.edit',compact('pengerjaans','alats','teknisis'));
+        return view('pengerjaan.edit', compact('pengerjaans', 'alats', 'teknisis'));
     }
 
     /**
@@ -96,23 +101,18 @@ class PengerjaanController extends Controller
     {
         $validatedData = $request->validate([
             'no_working_order' => 'required',
-            'alat_id' => 'required|integer',
+            'unit_engine' => 'required',
+            'serial_number' => 'required',
             'teknisi_id' => 'required|integer',
             'user_id' => 'required|integer',
             'user_admin_id' => 'required|integer',
             'tanggal_masuk' => 'required|date',
+            'tanggal_update' => 'required|date',
             'keterangan' => 'required|max:255',
             'status' => 'required|max:255',
             'estimasi_pengerjaan' => 'required',
             'deskripsi_pekerjaan' => 'max:255'
         ]);
-
-        // $no_working_order = $validatedData['no_working_order'];
-
-        // Update the status of the related WorkingOrder
-        // WorkingOrder::where('no_working_order', $no_working_order)->update([
-        //     'status' => 'proses'
-        // ]);
 
         // Find the existing Pengerjaan by its ID
         $pengerjaan = Pengerjaan::findOrFail($id);
@@ -124,10 +124,28 @@ class PengerjaanController extends Controller
         $deskripsi_pekerjaan = [
             'deskripsi_pekerjaan' => $request->deskripsi_pekerjaan,
             'pengerjaan_id' => $pengerjaan->id,
+            'tanggal_update' => $request->tanggal_update,
+            'status' => $request->status,
+            'keterangan' => $request->keterangan
         ];
 
         // Find or create DeskripsiPekerjaan based on pengerjaan_id
         DeskirpsiPekerjaan::create($deskripsi_pekerjaan);
+
+        $history = [
+            'pengerjaan_id' => $pengerjaan->id,
+            'keterangan' => $request->keterangan,
+        ];
+
+        if ($request->status == 'selesai') {
+            History::create($history);
+            $no_working_order = $validatedData['no_working_order'];
+
+            // Update the status of the related WorkingOrder
+            WorkingOrder::where('no_working_order', $no_working_order)->update([
+                'status' => 'selesai'
+            ]);
+        }
 
         toast('Working Order Berhasil Diperbarui', 'success');
         return redirect('/pengerjaan');
@@ -137,8 +155,16 @@ class PengerjaanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pengerjaan $pengerjaan)
+    public function destroy($id)
     {
-        //
+        try {
+            $pengerjaan = Pengerjaan::findOrFail($id);
+            $pengerjaan->delete();
+            Alert::toast('Data Berhasil dihapus', 'success');
+            return redirect('/pengerjaan');
+        } catch (\Exception $e) {
+            Alert::toast('Gagal mengubah data', 'error');
+            return back()->withErrors(['error' => 'Gagal menghapus data.']);
+        }
     }
 }

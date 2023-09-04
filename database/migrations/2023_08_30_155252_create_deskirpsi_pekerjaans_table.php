@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pengerjaan_id')->constrained('pengerjaans')->onDelete('cascade');
             $table->string('deskripsi_pekerjaan');
+            $table->string('keterangan')->nullable();
+            $table->date('tanggal_update')->nullable();
+            $table->enum('status', ['belum konfirmasi', 'sedang dikerjakan','pending', 'selesai'])->nullable();
             $table->timestamps();
         });
     }

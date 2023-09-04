@@ -6,8 +6,69 @@
 
 @section('container-fluid')
 
+    <style>
+        /* CSS untuk timeline-item */
+        .timeline-item {
+            background-color: #f5f5f5;
+            border-left: 2px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        /* CSS untuk time (ikon jam) */
+        .time {
+            color: #3498db;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* CSS untuk header */
+        .timeline-header {
+            font-size: 24px;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        /* CSS untuk timeline-body */
+        .timeline-body {
+            font-size: 18px;
+            color: #777;
+            line-height: 1.4;
+        }
+
+        /* CSS untuk ikon jam (fas fa-clock) */
+        .fas.fa-clock {
+            margin-right: 5px;
+        }
+
+        /* CSS untuk status */
+        .status {
+            font-weight: bold;
+            color: #e74c3c;
+            /* warna merah misalnya untuk status buruk */
+        }
+
+        /* CSS untuk warna status yang berbeda */
+        .status.completed {
+            color: #27ae60;
+            /* warna hijau untuk status selesai */
+        }
+
+        /* CSS untuk warna status yang berbeda */
+        .status.in-progress {
+            color: #f39c12;
+            /* warna kuning untuk status sedang berlangsung */
+        }
+
+        /* CSS untuk warna status yang berbeda */
+        .status.pending {
+            color: #3498db;
+            /* warna biru untuk status tertunda */
+        }
+    </style>
     <div class="card mb-3">
-        @foreach ($pengerjaans as $item)
+        @foreach ($pengerjaanByWorkingOrder as $workingOrder => $item)
             @if (Auth::user()->role = 'user')
                 <section class="content mt-3">
                     <div class="container-fluid">
@@ -16,37 +77,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="timeline">
-                                    <!-- timeline time label -->
-                                    {{-- <div class="time-label">
-                                        <span
-                                            class="bg-red">{{ \Carbon\Carbon::parse($item->tanggal_masuk)->translatedFormat('l, d F Y') }}</span>
-                                    </div>
-                                    <!-- /.timeline-label -->
-
-                                    <!-- timeline item -->
-                                    <div>
-                                        <i class="fas fa-envelope bg-blue"></i>
-                                        <div class="timeline-item">
-                                            <span class="time"><i class="fas fa-clock"></i>
-                                                {{ $item->created_at->format('H:i') }}</span>
-                                            <h3 class="timeline-header">{{ $item->teknisi->nama_teknisi }}</h3>
-
-                                            @foreach ($deskripsi_pekerjaan as $value)
-                                                <div class="timeline-body">
-                                                    {{ $value->deskripsi_pekerjaan }} <p>Tanggal :
-                                                        {{ \Carbon\Carbon::parse($value->created_at)->translatedFormat('l, d F Y') }}
-                                                    </p>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div> --}}
-                                    <!-- END timeline item -->
-
-
-                                    @foreach ($deskripsi_pekerjaan as $value)
+                                    @foreach ($deskripsiByWorkingOrder[$workingOrder] as $value)
                                         @php
                                             $created_at = $value->created_at;
-                                            // Array terjemahan hari dalam bahasa Indonesia
                                             $days_in_indonesian = [
                                                 'Sunday' => 'Minggu',
                                                 'Monday' => 'Senin',
@@ -57,7 +90,6 @@
                                                 'Saturday' => 'Sabtu',
                                             ];
                                             
-                                            // Array terjemahan bulan dalam bahasa Indonesia
                                             $months_in_indonesian = [
                                                 'January' => 'Januari',
                                                 'February' => 'Februari',
@@ -73,37 +105,43 @@
                                                 'December' => 'Desember',
                                             ];
                                             
-                                            // Format tanggal
-                                            $formatted_date = date('l, d F Y H:i', strtotime($created_at));
+                                            $formatted_date = date('l, d F Y', strtotime($created_at));
                                             $formatted_date = strtr($formatted_date, $days_in_indonesian);
                                             $formatted_date = strtr($formatted_date, $months_in_indonesian);
-                                            
                                         @endphp
                                         <div class="time-label">
-                                            <span class="bg-green">{{ $formatted_date }}</span>
+                                            <span class="bg-blue">{{ $formatted_date }}</span>
                                         </div>
                                         <div>
-                                            <i class="fas fa-comments bg-yellow"></i>
+                                            <i class="fas fa-comments bg-blue"></i>
                                             <div class="timeline-item">
                                                 <span class="time"><i class="fas fa-clock"></i>
                                                     {{ $value->created_at->diffForHumans() }}</span>
-                                                <h3 class="timeline-header">{{ $item->teknisi->nama_teknisi }}</h3>
+                                                <span class="time">
+                                                    {{ $value->status }}
+                                                </span>
+                                                <h3 class="timeline-header">{{ $value->pengerjaan->teknisi->nama_teknisi }}
+                                                </h3>
                                                 <div class="timeline-body">
                                                     {{ $value->deskripsi_pekerjaan }}
+                                                    {{ $value->pengerjaan->no_working_order }}
+                                                    {{ $value->keterangan }}
+                                                    {{ $value->pengerjaan->tanggal_masuk }}
+                                                    {{ $value->tanggal_update }}
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
 
-                                    <!-- END timeline item -->
                                     <div>
                                         <i class="fas fa-clock bg-gray"></i>
                                     </div>
                                 </div>
-
+                                <hr>
                             </div>
                             <!-- /.col -->
                         </div>
+
                     </div>
                     <!-- /.timeline -->
 
@@ -157,7 +195,7 @@
                                     <!-- END timeline item -->
                                     <!-- timeline item -->
                                     <div>
-                                        <i class="fas fa-comments bg-yellow"></i>
+                                        <i class="fas fa-comments bg-blue"></i>
                                         <div class="timeline-item">
                                             <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
                                             <h3 class="timeline-header"><a href="#">Jay White</a> commented on your

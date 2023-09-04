@@ -4,12 +4,12 @@
 
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
-        <div class="text-center mt-2">
-            <img src="{{ asset('AdminLTE') }}/dist/img/trakindoLogo.png" width="200px" height="150px" alt="">
+        <div class="text-center mt-3">
+            <img src="{{ asset('AdminLTE') }}/dist/img/poli.png" width="100px" height="100px" alt="">
         </div>
 
-        <div class="text-center">
-            <a href="{{ url('/') }}" class="h3">PT Trakindo <b>CAT</b></a>
+        <div class="text-center mt-3">
+            <a href="{{ url('/') }}" class="h4">Customer Daily Monitoring</a>
         </div>
         <div class="card-body">
             {{-- <p class="login-box-msg">Login</p> --}}

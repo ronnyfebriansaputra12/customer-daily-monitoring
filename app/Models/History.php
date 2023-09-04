@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DeskirpsiPekerjaan extends Model
+class History extends Model
 {
     use HasFactory;
     protected $guarded=[];
@@ -13,10 +13,5 @@ class DeskirpsiPekerjaan extends Model
     public function pengerjaan()
     {
         return $this->belongsTo(Pengerjaan::class);
-    }
-
-    public function alat()
-    {
-        return $this->belongsTo(Alat::class);
     }
 }

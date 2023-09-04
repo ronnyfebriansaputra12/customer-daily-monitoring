@@ -1,10 +1,11 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar elevation-4 sidebar-light-primary">
+<aside class="main-sidebar elevation-4 sidebar-light-warning">
     <!-- Brand Logo -->
     <a href="/dashboard" class="brand-link" style="text-decoration: none; ">
-        <img src="{{ asset('AdminLTE') }}/dist/img/trakindoLogo.png" width="150px" alt="AdminLTE Logo"
+        <img src="{{ asset('AdminLTE') }}/dist/img/poli.png" width="150px" alt="AdminLTE Logo"
             class="brand-image img-circle">
-        <span class="brand-text font-weight-black">Trakindo CAT</span>
+        <span class="brand-text font-weight-black" style="font-size: 15px;">Customer Daily Monitoring</span>
+
     </a>
 
     <!-- Sidebar -->
@@ -41,9 +42,9 @@
                     </a>
                 </li>
                 <li
-                    class="nav-item {{ Request::is('working-order', 'pengerjaan', 'user', 'alat', 'teknisi', 'deskripsi-pekerjaan') ? 'menu-is-opening menu-open' : '' }}">
+                    class="nav-item {{ Request::is('working-order', 'pengerjaan', 'user', 'history', 'teknisi', 'deskripsi-pekerjaan') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#"
-                        class="nav-link {{ Request::is('working-order', 'pengerjaan', 'user', 'alat', 'teknisi', 'deskripsi-pekerjaan') ? 'active' : '' }}"
+                        class="nav-link {{ Request::is('working-order', 'pengerjaan', 'user', 'history', 'teknisi', 'deskripsi-pekerjaan') ? 'active' : '' }}"
                         style="">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
@@ -58,6 +59,13 @@
                                     class="nav-link {{ Request::is('working-order') ? 'active' : '' }}" style="">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Working Order</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('history') }}"
+                                    class="nav-link {{ Request::is('history') ? 'active' : '' }}" style="">
+                                    <i class="nav-icon fas fa-solid fa-book-bookmark"></i>
+                                    <p>History</p>
                                 </a>
                             </li>
                         @endif
@@ -78,16 +86,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('alat') }}"
-                                    class="nav-link {{ Request::is('alat') ? 'active' : '' }}" style="">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Alat</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="{{ url('teknisi') }}"
                                     class="nav-link {{ Request::is('teknisi') ? 'active' : '' }}" style="">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="nav-icon fas fa-user"></i>
                                     <p>Teknisi</p>
                                 </a>
                             </li>
@@ -108,13 +109,10 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/laporan') }}"
-                                    class="nav-link {{ Request::is('laporan') ? 'active' : '' }}" style="">
-                                    <i class="nav-icon fas fa-book"></i>
-                                    <p>
-                                        Laporan
-                                        {{-- <span class="right badge badge-danger">New</span> --}}
-                                    </p>
+                                <a href="{{ url('history') }}"
+                                    class="nav-link {{ Request::is('history') ? 'active' : '' }}" style="">
+                                    <i class="nav-icon fas fa-solid fa-book-bookmark"></i>
+                                    <p>History</p>
                                 </a>
                             </li>
                         @endif

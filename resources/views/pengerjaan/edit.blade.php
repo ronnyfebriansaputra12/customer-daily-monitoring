@@ -1,12 +1,14 @@
 @extends('layouts.master')
 
-@section('title', 'Create Pengerjaan')
+@section('title', 'Update Pengerjaan')
 {{-- @section('header', 'Pengeluaran') --}}
-@section('breadcrumb', 'Create Pengerjaan')
+@section('breadcrumb', 'Update Pengerjaan')
 @section('container-fluid')
 
     <div class="container">
-        <div class="card border-primary mb-3">
+        <a href="/pengerjaan" class="btn btn-primary"><i class="fas fa-solid fa-arrow-left"></i></a>
+
+        <div class="card border-primary mt-3 mb-3">
             <div class="card-header">Update Proggress Pekerjaan</div>
             <div class="card-body">
                 <form action="/pengerjaan/{{ $pengerjaans->id }}" method="post">
@@ -63,26 +65,6 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <!-- Alat ID Input -->
-                            <label for="alat_id">Alat</label>
-                            <div class="input-group mb-3">
-                                <select class="form-control @error('alat_id') is-invalid @enderror" name="alat_id">
-                                    <option value="">Pilih Alat</option>
-                                    @foreach ($alats as $alat)
-                                        <option value="{{ $alat->id }}"
-                                            {{ old('alat_id', $pengerjaans->alat_id) == $alat->id ? 'selected' : '' }}>
-                                            {{ $alat->nama_alat }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('alat_id')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-6">
                             <!-- Estimasi Pengerjaan Input -->
                             <label for="estimasi_pengerjaan">Estimasi Pengerjaan</label>
                             <div class="input-group mb-3">
@@ -92,6 +74,36 @@
                                     value="{{ old('estimasi_pengerjaan', $pengerjaans->estimasi_pengerjaan) }}"
                                     placeholder="Estimasi Pengerjaan">
                                 @error('estimasi_pengerjaan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Alat ID Input -->
+                            <label for="unit_engine">Unit / Engine</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control @error('unit_engine') is-invalid @enderror"
+                                    name="unit_engine" value="{{ old('unit_engine', $pengerjaans->unit_engine) }}"
+                                    placeholder="Unit / Engine">
+                                @error('unit_engine')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Serial Number -->
+                            <label for="serial_number">Serial Number</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control @error('serial_number') is-invalid @enderror"
+                                    name="serial_number" value="{{ old('serial_number', $pengerjaans->serial_number) }}"
+                                    placeholder="Serial Number">
+                                @error('serial_number')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -117,6 +129,8 @@
                                         Konfirmasi</option>
                                     <option value="sedang dikerjakan" @if ($pengerjaans->status == 'sedang dikerjakan') selected @endif>
                                         Sedang di Kerjakan</option>
+                                    <option value="pending" @if ($pengerjaans->status == 'sedang dikerjakan') selected @endif>
+                                        Pending</option>
                                     <option value="selesai" @if ($pengerjaans->status == 'selesai') selected @endif>Selesai
                                     </option>
                                 </select>
@@ -131,11 +145,12 @@
                                     value="{{ old('tanggal_update', $pengerjaans->tanggal_update) }}">
                             </div>
                         </div>
-                        {{-- <div class="col-md-4">
-                            <!-- Tanggal Selesai Input -->
+                        <!-- Tambahkan ini di bawah elemen "select" -->
+                        {{-- <div id="tanggal_selesai_div" class="col-md-12" style="display: none;">
                             <label for="tanggal_selesai">Tanggal Selesai</label>
                             <div class="input-group mb-3">
-                                <input type="date" class="form-control" name="tanggal_selesai">
+                                <input type="date" class="form-control" name="tanggal_selesai"
+                                    value="{{ old('tanggal_selesai', $pengerjaans->tanggal_selesai) }}">
                             </div>
                         </div> --}}
                     </div>
@@ -198,5 +213,30 @@
         </div>
         </form>
     </div>
+
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Mengamati perubahan pada elemen "select" dengan nama "status"
+            $('select[name="status"]').on('change', function() {
+                var selectedValue = $(this).val();
+                if (selectedValue === 'selesai') {
+                    // Jika yang dipilih adalah "selesai", tampilkan input "Tanggal Update"
+                    $('#tanggal_selesai_div').show();
+                } else {
+                    // Jika yang dipilih bukan "selesai", sembunyikan input "Tanggal Update"
+                    $('#tanggal_selesai_div').hide();
+                }
+            });
+
+            // Set status awal saat halaman dimuat
+            var initialStatus = $('select[name="status"]').val();
+            if (initialStatus === 'selesai') {
+                $('#tanggal_selesai_div').show();
+            } else {
+                $('#tanggal_selesai_div').hide();
+            }
+        });
+    </script> --}}
 
 @endsection

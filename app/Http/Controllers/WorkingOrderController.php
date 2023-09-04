@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Alat;
 use App\Models\User;
-use App\Models\Pengerjaan;
 use App\Models\Teknisi;
+use App\Models\Pengerjaan;
 use App\Models\WorkingOrder;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class WorkingOrderController extends Controller
 {
@@ -93,8 +94,16 @@ class WorkingOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(WorkingOrder $workingOrder)
+    public function destroy($id)
     {
-        //
+        try {
+            $workingOrder = WorkingOrder::findOrFail($id);
+            $workingOrder->delete();
+            Alert::toast('Data Berhasil dihapus', 'success');
+            return redirect('/working-order');
+        } catch (\Exception $e) {
+            Alert::toast('Gagal mengubah data', 'error');
+            return back()->withErrors(['error' => 'Gagal menghapus data.']);
+        }
     }
 }

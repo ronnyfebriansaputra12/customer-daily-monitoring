@@ -5,7 +5,7 @@
     <div class="register-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="#" class="h1">PT Trakindo<b> CAT</b></a>
+                <a href="#" cclass="h4">Customer Daily Monitoring</a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Registrasi Akun Baru</p>

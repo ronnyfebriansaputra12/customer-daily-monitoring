@@ -38,13 +38,8 @@ class TeknisiController extends Controller
             'nama_teknisi' => 'required',
             'email' => 'required|email',
             'kontak' => 'required',
-            'password' => 'required|string|min:8|confirmed',
-            'password_confirmation' => 'required|string|min:4|same:password',
         ]);
 
-        $validate['password'] = Hash::make($request->password);
-        $validate['password_confirmation'] = Hash::make($request->password_confirmation);
-        
 
         Teknisi::create($validate);
         toast('Data Teknisi Berhasil di Tambahkan','success');
@@ -78,8 +73,16 @@ class TeknisiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Teknisi $teknisi)
+    public function destroy($id)
     {
-        //
+        try {
+            $teknisi = Teknisi::findOrFail($id);
+            $teknisi->delete();
+            Alert::toast('Data Berhasil dihapus', 'success');
+            return redirect('/teknisi');
+        } catch (\Exception $e) {
+            Alert::toast('Gagal mengubah data', 'error');
+            return back()->withErrors(['error' => 'Gagal menghapus data.']);
+        }
     }
 }

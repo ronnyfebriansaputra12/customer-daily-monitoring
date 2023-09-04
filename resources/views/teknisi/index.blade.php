@@ -30,6 +30,8 @@
                                 <td>{{ $p->email }}</td>
                                 <td>{{ $p->kontak }}</td>
                                 <td>
+
+
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-warning btn-sm mr-1" data-bs-toggle="modal"
                                             data-bs-target="#btn-edit{{ $p->id }}">
@@ -146,34 +148,6 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="input-group mb-3" >
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
-                                value="{{ old('password') }}" placeholder="Password">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                </div>
-                            </div>
-                            @error('password')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="input-group mb-3" >
-                            <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation"
-                                value="{{ old('password_confirmation') }}" placeholder="Password Konfirmation">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                </div>
-                            </div>
-                            @error('password_confirmation')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
                         <div class="row">
                             <!-- /.col -->
                             <div class="col-12">
@@ -270,7 +244,7 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location = "/alat/delete/" + link;
+                    window.location = "/teknisi/delete/" + link;
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',

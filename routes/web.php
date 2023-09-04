@@ -53,7 +53,7 @@ Route::middleware(['isLogin','verified'])->group(function () {
     Route::get('/working-order/pengerjaan/{id}', 'App\Http\Controllers\WorkingOrderController@pengerjaan');
     Route::post('/working-order', 'App\Http\Controllers\WorkingOrderController@store');
     Route::get('/working-order/{id}', 'App\Http\Controllers\WorkingOrderController@show');
-    Route::get('/working-order/delete/{alat}', 'App\Http\Controllers\WorkingOrderController@destroy');
+    Route::get('/working-order/delete/{id}', 'App\Http\Controllers\WorkingOrderController@destroy');
 
     Route::post('/insertUser', 'App\Http\Controllers\UserController@insertUser');
     Route::get('/user', 'App\Http\Controllers\UserController@index');
@@ -66,12 +66,17 @@ Route::middleware(['isLogin','verified'])->group(function () {
     Route::get('/pengerjaan/{id}', 'App\Http\Controllers\PengerjaanController@show');
     Route::get('/pengerjaan/edit/{pengerjaan}', 'App\Http\Controllers\PengerjaanController@edit');
     Route::put('/pengerjaan/{id}', 'App\Http\Controllers\PengerjaanController@update');
-    Route::get('/pengerjaan/delete/{alat}', 'App\Http\Controllers\PengerjaanController@destroy');
+    Route::get('/pengerjaan/delete/{id}', 'App\Http\Controllers\PengerjaanController@destroy');
 
     Route::get('/teknisi', 'App\Http\Controllers\TeknisiController@index');
     Route::post('/teknisi', 'App\Http\Controllers\TeknisiController@store');
     Route::get('/teknisi/{id}', 'App\Http\Controllers\TeknisiController@show');
     Route::get('/teknisi/delete/{alat}', 'App\Http\Controllers\TeknisiController@destroy');
+
+    Route::get('/history', 'App\Http\Controllers\HistoryController@index');
+    Route::post('/history', 'App\Http\Controllers\HistoryController@store');
+    Route::get('/history/{id}', 'App\Http\Controllers\HistoryController@show');
+    Route::get('/history/delete/{id}', 'App\Http\Controllers\HistoryController@destroy');
 
     Route::get('/deskripsi-pekerjaan', 'App\Http\Controllers\DeskirpsiPekerjaanController@index');
     Route::post('/deskripsi-pekerjaan', 'App\Http\Controllers\DeskirpsiPekerjaanController@store');

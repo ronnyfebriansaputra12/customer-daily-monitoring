@@ -16,8 +16,8 @@
                         @php
                             $user_admin_id = Auth::user()->id;
                         @endphp
-                        <input type="text" class="form-control @error('user_admin_id') is-invalid @enderror" name="user_admin_id"
-                            value="{{ $user_admin_id }}" placeholder="User ID">
+                        <input type="text" class="form-control @error('user_admin_id') is-invalid @enderror"
+                            name="user_admin_id" value="{{ $user_admin_id }}" placeholder="User ID">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -50,8 +50,7 @@
                             <div class="input-group mb-3">
 
                                 <input type="text" class="form-control @error('user_id') is-invalid @enderror"
-                                    name="user_id"
-                                    value="{{ old('user_id', $workingOrder->user_id) }}" readonly
+                                    name="user_id" value="{{ old('user_id', $workingOrder->user_id) }}" readonly
                                     placeholder="No Working Order">
                                 @error('user_id')
                                     <div class="invalid-feedback">
@@ -64,17 +63,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <!-- Alat ID Input -->
-                            <label for="alat_id">Alat</label>
+                            <label for="unit_engine">Unit / Engine</label>
                             <div class="input-group mb-3">
-                                <select class="form-control @error('alat_id') is-invalid @enderror" name="alat_id">
-                                    <option value="">Pilih Alat</option>
-                                    @foreach ($alat as $alat)
-                                        <option value="{{ $alat->id }}"
-                                            {{ old('alat_id') == $alat->id ? 'selected' : '' }}>{{ $alat->nama_alat }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('alat_id')
+                                <input type="text" class="form-control @error('unit_engine') is-invalid @enderror"
+                                    name="unit_engine" value="{{ old('unit_engine') }}" placeholder="Unit / Engine">
+                                @error('unit_engine')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -82,13 +75,13 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <!-- Estimasi Pengerjaan Input -->
-                            <label for="estimasi_pengerjaan">Estimasi Pengerjaan</label>
+                            <!-- Serial Number -->
+                            <label for="serial_number">Serial Number</label>
                             <div class="input-group mb-3">
-                                <input type="text"
-                                    class="form-control @error('estimasi_pengerjaan') is-invalid @enderror"
-                                    name="estimasi_pengerjaan" value="{{ old('estimasi_pengerjaan') }}" placeholder="Estimasi Pengerjaan">
-                                @error('estimasi_pengerjaan')
+                                <input type="text" class="form-control @error('serial_number') is-invalid @enderror"
+                                    name="serial_number" value="{{ old('serial_number') }}"
+                                    placeholder="Serial Number">
+                                @error('serial_number')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -105,16 +98,21 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <!-- Status Input -->
-                            <label for="status">Status</label>
+                            <!-- Estimasi Pengerjaan Input -->
+                            <label for="estimasi_pengerjaan">Estimasi Pengerjaan</label>
                             <div class="input-group mb-3">
-                                <select class="form-control" name="status">
-                                    <option value="belum konfirmasi">Belum Konfirmasi</option>
-                                    <option value="sedang dikerjakan">Sedang Dikerjakan</option>
-                                    <option value="selesai">Selesai</option>
-                                </select>
+                                <input type="text"
+                                    class="form-control @error('estimasi_pengerjaan') is-invalid @enderror"
+                                    name="estimasi_pengerjaan" value="{{ old('estimasi_pengerjaan') }}"
+                                    placeholder="Estimasi Pengerjaan">
+                                @error('estimasi_pengerjaan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
+
                         {{-- <div class="col-md-4">
                             <!-- Tanggal Update Input -->
                             <label for="tanggal_update">Tanggal Update</label>
@@ -131,14 +129,7 @@
                         </div> --}}
                     </div>
                     <div class="row">
-                        <div class="col-md-8">
-                            <!-- Keterangan Input -->
-                            <label for="keterangan">Keterangan</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" value="{{ old('keterangan') }}" name="keterangan" placeholder="Keterangan">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <!-- Alat ID Input -->
                             <label for="teknisi_id">Teknisi</label>
                             <div class="input-group mb-3">
@@ -157,7 +148,28 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <div class="col-md-6">
+                            <!-- Status Input -->
+                            <label for="status">Status</label>
+                            <div class="input-group mb-3">
+                                <select class="form-control" name="status">
+                                    <option value="belum konfirmasi">Belum Konfirmasi</option>
+                                    <option value="sedang dikerjakan">Sedang Dikerjakan</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="selesai">Selesai</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Keterangan Input -->
+                            <label for="keterangan">Keterangan</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" value="{{ old('keterangan') }}"
+                                    name="keterangan" placeholder="Keterangan">
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -179,7 +191,7 @@
                 <a href="/working-order" class="btn btn-danger mr-2"><i class="fas fa-times"></i> Batal</a>
                 <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</button>
             </div>
-            
+
         </div>
         </form>
     </div>
