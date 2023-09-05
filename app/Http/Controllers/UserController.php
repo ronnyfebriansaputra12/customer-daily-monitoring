@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
-    function index() {
+    function index()
+    {
         $users = User::all();
         return view('user.index', compact('users'));
     }
@@ -48,6 +50,54 @@ class UserController extends Controller
         Alert::toast('Data Berhasil diubah', 'success');
         return redirect('/user');
     }
+
+    public function profile()
+    {
+        $profile = User::find(Auth::user()->id)->first();
+        return view('profile.index', compact('profile'));
+    }
+
+    function profileUpdate(Request $request)
+    {
+
+        $id = Auth::user()->id;
+        $validate = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|string',
+            'kontak' => 'required|numeric',
+        ]);
+
+        User::where('id', $id)->update($validate);
+        Alert::toast('Update Profile Berhasil', 'success');
+        return redirect('/profile');
+    }
+
+    // function updateAvatar(Request $request)
+    // {
+    //     $id = Auth::user()->id;
+    //     $validate = request()->validate([
+    //         'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //     ]);
+
+    //     if ($request->hasFile('avatar')) {
+    //         $imagePath = $request->file('avatar')->getRealPath();
+    //         $result = Cloudinary::upload($imagePath, [
+    //             'folder' => 'avatar',
+    //             'transformation' => [
+    //                 'width' => 320,
+    //                 'height' => 320,
+    //                 'crop' => 'limit',
+    //             ],
+    //         ]);
+    //         $imageUrl = $result->getSecurePath();
+    //         $validate['avatar'] = $imageUrl;
+    //     }
+
+    //     User::where('id', $id)->update($validate);
+    //     Alert::toast('Update Data Avatar', 'success');
+    //     return redirect('/profile');
+    // }
+
 
     function deleteUser(User $user)
     {

@@ -17,6 +17,10 @@
                     <thead>
                         <th>No</th>
                         <th>Pengerjaan</th>
+                        <th>Nama Customer</th>
+                        <th>Uni / Engine</th>
+                        <th>Serial Number</th>
+                        <th>Tanggal Selesai</th>
                         <th>Action</th>
                     </thead>
                     <tbody>
@@ -25,13 +29,12 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $p->pengerjaan->no_working_order }}</td>
+                                <td>{{ $p->pengerjaan->user->name }}</td>
+                                <td>{{ $p->pengerjaan->unit_engine }}</td>
+                                <td>{{ $p->pengerjaan->serial_number }}</td>
+                                <td>{{ $p->created_at }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-warning btn-sm mr-1" data-bs-toggle="modal"
-                                            data-bs-target="#btn-edit{{ $p->id }}">
-                                            <i class="fa fa-edit"></i> Edit
-                                        </button>
-
                                         <a href="#" id="btn-hapus" class="btn btn-danger btn-sm"
                                             data-id="{{ $p->id }}">
                                             <i class="fa-solid fas fa-trash"></i> Delete

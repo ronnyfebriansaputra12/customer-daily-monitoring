@@ -55,6 +55,7 @@ Route::middleware(['isLogin','verified'])->group(function () {
     Route::get('/working-order/{id}', 'App\Http\Controllers\WorkingOrderController@show');
     Route::get('/working-order/delete/{id}', 'App\Http\Controllers\WorkingOrderController@destroy');
 
+    Route::get('/profile', 'App\Http\Controllers\UserController@profile');
     Route::post('/insertUser', 'App\Http\Controllers\UserController@insertUser');
     Route::get('/user', 'App\Http\Controllers\UserController@index');
     Route::get('/user/{user}', 'App\Http\Controllers\UserController@deleteUser');
@@ -71,7 +72,8 @@ Route::middleware(['isLogin','verified'])->group(function () {
     Route::get('/teknisi', 'App\Http\Controllers\TeknisiController@index');
     Route::post('/teknisi', 'App\Http\Controllers\TeknisiController@store');
     Route::get('/teknisi/{id}', 'App\Http\Controllers\TeknisiController@show');
-    Route::get('/teknisi/delete/{alat}', 'App\Http\Controllers\TeknisiController@destroy');
+    Route::put('/teknisi/{id}', 'App\Http\Controllers\TeknisiController@update');
+    Route::get('/teknisi/delete/{id}', 'App\Http\Controllers\TeknisiController@destroy');
 
     Route::get('/history', 'App\Http\Controllers\HistoryController@index');
     Route::post('/history', 'App\Http\Controllers\HistoryController@store');

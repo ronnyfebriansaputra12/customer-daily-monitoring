@@ -48,123 +48,146 @@
                             </tr>
 
                             <!-- Modal Update Data -->
-                            {{-- <div class="modal fade" id="btn-edit{{ $p->no_working_order }}" tabindex="-1"
+                            <div class="modal fade" id="btn-edit{{ $p->id }}" tabindex="-1"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title text-center" id="modalUpdateLabel">Working Order Update
+                                            <h5 class="modal-title text-center" id="modalUpdateLabel">Teknisi Update
                                             </h5>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="/alat/{{ $p->id }}" method="post">
+                                            <form action="/teknisi/{{ $p->id }}" method="post">
                                                 @csrf
                                                 @method('PUT')
-                                                <div class="input-group mb-3">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="form-label">Nama
+                                                        Teknisi</label>
                                                     <input type="text"
-                                                        class="form-control @error('no_working_order') is-invalid @enderror"
-                                                        name="no_working_order"
-                                                        value="{{ old('no_working_order', $p->no_working_order) }}">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                        class="form-control @error('nama_teknisi') is-invalid @enderror"
+                                                        name="nama_teknisi"
+                                                        value="{{ old('nama_teknisi', $p->nama_teknisi) }}">
+                                                    @error('nama_teknisi')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
                                                         </div>
-                                                    </div>
-                                                    @error('no_working_order')
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                                    <input type="text"
+                                                        class="form-control @error('email') is-invalid @enderror"
+                                                        name="email"
+                                                        value="{{ old('email', $p->email) }}">
+                                                    @error('email')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
 
-                                                </div>
+                                                    <div class="mt-3">
+                                                        <label for="exampleFormControlInput1" class="form-label">Kontak
+                                                            Teknisi</label>
+                                                        <input type="text"
+                                                            class="form-control @error('kontak') is-invalid @enderror"
+                                                            name="kontak"
+                                                            value="{{ old('kontak', $p->kontak) }}">
+                                                        @error('kontak')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
 
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save</button>
-                                                </div>
-                                            </form>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Insert Data -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel">Teknisi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ url('/teknisi') }}" method="post">
-                        @csrf
-                        <div class="input-group mb-3" >
-                            <input type="text" class="form-control @error('nama_teknisi') is-invalid @enderror" name="nama_teknisi"
-                                value="{{ old('nama_teknisi') }}" placeholder="Nama Teknisi">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                </div>
-                            </div>
-                            @error('nama_teknisi')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="input-group mb-3" >
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                                value="{{ old('email') }}" placeholder="Email">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                </div>
-                            </div>
-                            @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="input-group mb-3" >
-                            <input type="text" class="form-control @error('kontak') is-invalid @enderror" name="kontak"
-                                value="{{ old('kontak') }}" placeholder="Kontak">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                </div>
-                            </div>
-                            @error('kontak')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="row">
-                            <!-- /.col -->
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block">Save</button>
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                    </form>
-
-
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal Detail Data Pengeluaran -->
-    {{-- <div class="modal fade " id="detailModal" tabindex="-1" aria-labelledby="modalDetailLabel" aria-hidden="true">
+        <!-- Modal Insert Data -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="exampleModalLabel">Teknisi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url('/teknisi') }}" method="post">
+                            @csrf
+                            <div class="input-group mb-3">
+
+                                <input type="text" class="form-control @error('nama_teknisi') is-invalid @enderror"
+                                    name="nama_teknisi" value="{{ old('nama_teknisi') }}" placeholder="Nama Teknisi">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
+                                </div>
+                                @error('nama_teknisi')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                                    value="{{ old('email') }}" placeholder="Email">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-envelope"></span>
+
+                                    </div>
+                                </div>
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control @error('kontak') is-invalid @enderror"
+                                    name="kontak" value="{{ old('kontak') }}" placeholder="Kontak">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
+                                </div>
+                                @error('kontak')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="row">
+                                <!-- /.col -->
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-block">Save</button>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Detail Data Pengeluaran -->
+        {{-- <div class="modal fade " id="detailModal" tabindex="-1" aria-labelledby="modalDetailLabel" aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
@@ -207,83 +230,83 @@
     </div> --}}
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
-    <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
-
-        // --------------DELETE USER----------------
-        $(document).on('click', '#btn-hapus', function(e) {
-            e.preventDefault();
-            var link = $(this).attr('data-id');
-            console.log(link);
-
-            Swal.fire({
-                title: 'Apakah Anda Yakin?',
-                text: "Data Akan di Hapus!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location = "/teknisi/delete/" + link;
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                }
-            })
-        })
-
-        // ----------------------btn detail---------------------
-
-        $(document).ready(function() {
-            $('.btn-detail').click(function() {
-                var id = $(this).attr('id');
-                console.log(id);
-
-                $.ajax({
-                    url: 'user/detail/' + id, // Ganti dengan URL yang sesuai
-                    type: 'GET',
-                    data: {
-                        id: id
-                    },
-                    success: function(response) {
-                        console.log(response.data.jml_pengeluaran);
-                        $('#detailContent').html(response);
-                        $('#detailModal').modal('show');
-                        $('#id').text(response.data.id);
-                        $('#nama').text(response.data.name);
-                        $('#username').text(response.data.username);
-                        $('#email').text(response.data.email);
-                        $('#hp').text(response.data.phone);
-                        $('#role').text(response.data.role);
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(xhr.responseText);
-                    }
+        <script>
+            $(function() {
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
                 });
             });
-        });
-    </script>
 
-@endsection
+            // --------------DELETE USER----------------
+            $(document).on('click', '#btn-hapus', function(e) {
+                e.preventDefault();
+                var link = $(this).attr('data-id');
+                console.log(link);
+
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: "Data Akan di Hapus!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location = "/teknisi/delete/" + link;
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            })
+
+            // ----------------------btn detail---------------------
+
+            $(document).ready(function() {
+                $('.btn-detail').click(function() {
+                    var id = $(this).attr('id');
+                    console.log(id);
+
+                    $.ajax({
+                        url: 'user/detail/' + id, // Ganti dengan URL yang sesuai
+                        type: 'GET',
+                        data: {
+                            id: id
+                        },
+                        success: function(response) {
+                            console.log(response.data.jml_pengeluaran);
+                            $('#detailContent').html(response);
+                            $('#detailModal').modal('show');
+                            $('#id').text(response.data.id);
+                            $('#nama').text(response.data.name);
+                            $('#username').text(response.data.username);
+                            $('#email').text(response.data.email);
+                            $('#hp').text(response.data.phone);
+                            $('#role').text(response.data.role);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                });
+            });
+        </script>
+
+    @endsection

@@ -18,7 +18,8 @@
                         <th>No</th>
                         <th>Pekerjaan</th>
                         <th>Deksripsi Pekerjaan</th>
-                        <th>Action</th>
+                        <th>Tanggal Update</th>
+                        <th>Keterangan</th>
                     </thead>
                     <tbody>
 
@@ -27,7 +28,9 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $p->pengerjaan->no_working_order }}</td>
                                 <td>{{ $p->deskripsi_pekerjaan }}</td>
-                                <td>
+                                <td>{{ $p->tanggal_update }}</td>
+                                <td>{{ $p->keterangan }}</td>
+                                {{-- <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-warning btn-sm mr-1" data-bs-toggle="modal"
                                             data-bs-target="#btn-edit{{ $p->id }}">
@@ -39,7 +42,7 @@
                                             <i class="fa-solid fas fa-trash"></i> Delete
                                         </a>
                                     </div>
-                                </td>
+                                </td> --}}
 
                             </tr>
 

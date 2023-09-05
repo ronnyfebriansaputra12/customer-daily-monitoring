@@ -15,10 +15,9 @@ class TeknisiController extends Controller
     public function index()
     {
         $teknisis = Teknisi::all();
-        return view('teknisi.index',[
+        return view('teknisi.index', [
             'teknisis' => $teknisis
         ]);
-        
     }
 
     /**
@@ -34,16 +33,19 @@ class TeknisiController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $request->validate([
-            'nama_teknisi' => 'required',
-            'email' => 'required|email',
-            'kontak' => 'required',
-        ]);
-
-
-        Teknisi::create($validate);
-        toast('Data Teknisi Berhasil di Tambahkan','success');
-        return redirect('/teknisi');
+        try {
+            $validate = $request->validate([
+                'nama_teknisi' => 'required',
+                'email' => 'required|email',
+                'kontak' => 'required',
+            ]);
+            Teknisi::create($validate);
+            toast('Data Teknisi Berhasil di Tambahkan', 'success');
+            return redirect('/teknisi');
+        } catch (\Exception $e) {
+            Alert::toast('Gagal Menambahkan Data', 'error');
+            return back()->withErrors(['error' => 'Gagal menghapus data.']);
+        }
     }
 
     /**
@@ -65,9 +67,22 @@ class TeknisiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Teknisi $teknisi)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $validation = $request->validate([
+                'nama_teknisi' => 'required',
+                'email' => 'required',
+                'kontak' => 'required'
+            ]);
+            $teknisi = Teknisi::findOrFail($id);
+            $teknisi->update($validation);
+            toast('Data Teknisi Berhasil Diperbarui', 'success');
+            return redirect('/teknisi');
+        } catch (\Exception $e) {
+            Alert::toast('Gagal mengubah data', 'error');
+            return back()->withErrors(['error' => 'Gagal menghapus data.']);
+        }
     }
 
     /**
