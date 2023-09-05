@@ -41,7 +41,7 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 })->middleware(['isLogin', 'signed'])->name('verification.verify');
 
 
-Route::middleware(['isLogin','verified'])->group(function () {
+Route::middleware(['isLogin', 'verified'])->group(function () {
 
     Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index');
     Route::get('/alat', 'App\Http\Controllers\AlatController@index');
@@ -56,11 +56,16 @@ Route::middleware(['isLogin','verified'])->group(function () {
     Route::get('/working-order/delete/{id}', 'App\Http\Controllers\WorkingOrderController@destroy');
 
     Route::get('/profile', 'App\Http\Controllers\UserController@profile');
+    Route::put('/profileUpdate', 'App\Http\Controllers\UserController@profileUpdate');
+    Route::put('/updateAvatar', 'App\Http\Controllers\UserController@updateAvatar');
     Route::post('/insertUser', 'App\Http\Controllers\UserController@insertUser');
     Route::get('/user', 'App\Http\Controllers\UserController@index');
     Route::get('/user/{user}', 'App\Http\Controllers\UserController@deleteUser');
     Route::put('/updateUser/{user}', 'App\Http\Controllers\UserController@updateUser');
     Route::get('/user/detail/{id}', 'App\Http\Controllers\UserController@show');
+    Route::put('/changePassword', 'App\Http\Controllers\UserController@changePassword');
+
+    
 
     Route::get('/pengerjaan', 'App\Http\Controllers\PengerjaanController@index');
     Route::post('/pengerjaan', 'App\Http\Controllers\PengerjaanController@store');
@@ -84,6 +89,4 @@ Route::middleware(['isLogin','verified'])->group(function () {
     Route::post('/deskripsi-pekerjaan', 'App\Http\Controllers\DeskirpsiPekerjaanController@store');
     Route::get('/deskripsi-pekerjaan/{id}', 'App\Http\Controllers\DeskirpsiPekerjaanController@show');
     Route::get('/deskripsi-pekerjaan/delete/{alat}', 'App\Http\Controllers\DeskirpsiPekerjaanController@destroy');
-
-
 });

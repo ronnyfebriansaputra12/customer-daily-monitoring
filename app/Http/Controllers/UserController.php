@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class UserController extends Controller
 {
@@ -72,31 +73,53 @@ class UserController extends Controller
         return redirect('/profile');
     }
 
-    // function updateAvatar(Request $request)
-    // {
-    //     $id = Auth::user()->id;
-    //     $validate = request()->validate([
-    //         'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //     ]);
+    function updateAvatar(Request $request)
+    {
+        $id = Auth::user()->id;
+        $validate = request()->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-    //     if ($request->hasFile('avatar')) {
-    //         $imagePath = $request->file('avatar')->getRealPath();
-    //         $result = Cloudinary::upload($imagePath, [
-    //             'folder' => 'avatar',
-    //             'transformation' => [
-    //                 'width' => 320,
-    //                 'height' => 320,
-    //                 'crop' => 'limit',
-    //             ],
-    //         ]);
-    //         $imageUrl = $result->getSecurePath();
-    //         $validate['avatar'] = $imageUrl;
-    //     }
+        if ($request->hasFile('avatar')) {
+            $imagePath = $request->file('avatar')->getRealPath();
+            $result = Cloudinary::upload($imagePath, [
+                'folder' => 'avatar',
+                'transformation' => [
+                    'width' => 320,
+                    'height' => 320,
+                    'crop' => 'limit',
+                ],
+            ]);
+            $imageUrl = $result->getSecurePath();
+            $validate['avatar'] = $imageUrl;
+        }
 
-    //     User::where('id', $id)->update($validate);
-    //     Alert::toast('Update Data Avatar', 'success');
-    //     return redirect('/profile');
-    // }
+        User::where('id', $id)->update($validate);
+        Alert::toast('Update Data Avatar', 'success');
+        return redirect('/profile');
+    }
+
+    function changePassword(Request $request)
+    {
+        $id = Auth::user()->id;
+        $validate = $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required|string|min:4|same:password',
+        ]);
+
+        $pass_lama = Auth::user()->password;
+
+        if (Hash::check($request->password_lama, $pass_lama)) {
+            $validate['password'] = Hash::make($request->password);
+            $validate['password_confirmation'] = Hash::make($request->password_confirmation);
+            User::where('id', $id)->update($validate);
+            Alert::toast('Update Data Berhasil', 'success');
+            return redirect('/profile');
+        } else {
+            Alert::toast('Password Lama Tidak Sesuai', 'error');
+            return redirect('/profile');
+        }
+    }
 
 
     function deleteUser(User $user)
