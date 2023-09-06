@@ -68,7 +68,7 @@
         }
     </style>
     <div class="card mb-3">
-        @foreach ($pengerjaanByWorkingOrder as $workingOrder => $item)
+        @foreach ($pengerjaanByWorkingOrder as $workingOrder => $value)
             @if (Auth::user()->role = 'user')
                 <section class="content mt-3">
                     <div class="container-fluid">
