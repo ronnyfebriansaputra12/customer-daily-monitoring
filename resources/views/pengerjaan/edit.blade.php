@@ -125,13 +125,13 @@
                             <label for="status">Status</label>
                             <div class="input-group mb-3">
                                 <select class="form-control" name="status">
-                                    <option value="belum konfirmasi" @if ($pengerjaans->status == 'belum konfirmasi') selected @endif>Belum
+                                    <option value="belum konfirmasi" @if ($pengerjaans->status == 'belum konfirmasi ' ? 'selected' : '') selected @endif>Belum
                                         Konfirmasi</option>
-                                    <option value="sedang dikerjakan" @if ($pengerjaans->status == 'sedang dikerjakan') selected @endif>
+                                    <option value="sedang dikerjakan" @if ($pengerjaans->status == 'sedang dikerjakan'? 'selected' : '') selected @endif>
                                         Sedang di Kerjakan</option>
-                                    <option value="pending" @if ($pengerjaans->status == 'sedang dikerjakan') selected @endif>
+                                    <option value="pending" @if ($pengerjaans->status == 'peding'? 'selected' : '') selected @endif>
                                         Pending</option>
-                                    <option value="selesai" @if ($pengerjaans->status == 'selesai') selected @endif>Selesai
+                                    <option value="selesai" @if ($pengerjaans->status == 'selesai'? 'selected' : '') selected @endif>Selesai
                                     </option>
                                 </select>
 
