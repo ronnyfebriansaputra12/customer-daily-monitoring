@@ -5,11 +5,6 @@
 @section('breadcrumb', 'History')
 @section('container-fluid')
 
-
-
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <i class="fa-solid fas fa-plus"></i> Add History
-    </button>
     <div class="card mt-3">
         <div class="card-body">
             <div id="example_wrapper">
@@ -21,7 +16,11 @@
                         <th>Uni / Engine</th>
                         <th>Serial Number</th>
                         <th>Tanggal Selesai</th>
-                        <th>Action</th>
+                        @if (Auth::user()->role == 'admin')
+                            <th>Action</th>
+                        @else
+                            <th hidden>Action</th>
+                        @endif
                     </thead>
                     <tbody>
 
@@ -33,15 +32,25 @@
                                 <td>{{ $p->pengerjaan->unit_engine }}</td>
                                 <td>{{ $p->pengerjaan->serial_number }}</td>
                                 <td>{{ $p->created_at }}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a href="#" id="btn-hapus" class="btn btn-danger btn-sm"
-                                            data-id="{{ $p->id }}">
-                                            <i class="fa-solid fas fa-trash"></i> Delete
-                                        </a>
-                                    </div>
-                                </td>
-
+                                @if (Auth::user()->role == 'admin')
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="#" id="btn-hapus" class="btn btn-danger btn-sm"
+                                                data-id="{{ $p->id }}">
+                                                <i class="fa-solid fas fa-trash"></i> Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                @else
+                                    <td hidden>
+                                        <div class="btn-group">
+                                            <a href="#" id="btn-hapus" class="btn btn-danger btn-sm"
+                                                data-id="{{ $p->id }}">
+                                                <i class="fa-solid fas fa-trash"></i> Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                @endif
                             </tr>
 
                             <!-- Modal Update Data -->
@@ -212,7 +221,7 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["pdf"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

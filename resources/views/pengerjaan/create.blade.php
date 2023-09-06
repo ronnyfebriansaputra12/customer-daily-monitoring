@@ -79,8 +79,7 @@
                             <label for="serial_number">Serial Number</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control @error('serial_number') is-invalid @enderror"
-                                    name="serial_number" value="{{ old('serial_number') }}"
-                                    placeholder="Serial Number">
+                                    name="serial_number" value="{{ old('serial_number') }}" placeholder="Serial Number">
                                 @error('serial_number')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -113,20 +112,19 @@
                             </div>
                         </div>
 
-                        {{-- <div class="col-md-4">
-                            <!-- Tanggal Update Input -->
-                            <label for="tanggal_update">Tanggal Update</label>
-                            <div class="input-group mb-3">
-                                <input type="date" class="form-control" name="tanggal_update">
+                        <div hidden>
+                            @php
+                                $date = date('Y-m-d');
+                                // dd($date);
+                            @endphp
+                            <div class="col-md-4">
+                                <!-- Tanggal Update Input -->
+                                <label for="tanggal_update">Tanggal Update</label>
+                                <div class="input-group mb-3">
+                                    <input type="date" class="form-control" name="tanggal_update" value="{{$date}}">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <!-- Tanggal Selesai Input -->
-                            <label for="tanggal_selesai">Tanggal Selesai</label>
-                            <div class="input-group mb-3">
-                                <input type="date" class="form-control" name="tanggal_selesai">
-                            </div>
-                        </div> --}}
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -166,8 +164,13 @@
                             <!-- Keterangan Input -->
                             <label for="keterangan">Keterangan</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" value="{{ old('keterangan') }}"
-                                    name="keterangan" placeholder="Keterangan">
+                                <textarea class="form-control @error('keterangan') is-invalid @enderror" name="keterangan" rows="4"
+                                    placeholder="Keterangan"></textarea>
+                                @error('keterangan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                     </div>

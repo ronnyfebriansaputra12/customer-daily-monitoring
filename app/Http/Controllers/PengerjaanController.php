@@ -36,6 +36,7 @@ class PengerjaanController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
             'no_working_order' => 'required',
             'unit_engine' => 'required',
@@ -44,6 +45,7 @@ class PengerjaanController extends Controller
             'user_id' => 'required|integer',
             'user_admin_id' => 'required|integer',
             'tanggal_masuk' => 'required|date',
+            'tanggal_update' => 'required|date',
             'keterangan' => 'required|max:255',
             'status' => 'required|max:255',
             'estimasi_pengerjaan' => 'required',
@@ -56,6 +58,8 @@ class PengerjaanController extends Controller
         WorkingOrder::where('no_working_order', $no_working_order)->update([
             'status' => 'proses'
         ]);
+
+        $validatedData['tanggal_update'] = $request->tanggal_masuk;
 
         // Create a new Pengerjaan and get its ID
         $pengerjaan = Pengerjaan::create($validatedData);

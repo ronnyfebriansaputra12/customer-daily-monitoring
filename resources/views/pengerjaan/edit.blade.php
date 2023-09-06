@@ -63,24 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <!-- Estimasi Pengerjaan Input -->
-                            <label for="estimasi_pengerjaan">Estimasi Pengerjaan</label>
-                            <div class="input-group mb-3">
-                                <input type="text"
-                                    class="form-control @error('estimasi_pengerjaan') is-invalid @enderror"
-                                    name="estimasi_pengerjaan"
-                                    value="{{ old('estimasi_pengerjaan', $pengerjaans->estimasi_pengerjaan) }}"
-                                    placeholder="Estimasi Pengerjaan">
-                                @error('estimasi_pengerjaan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="row">
                         <div class="col-md-6">
                             <!-- Alat ID Input -->
@@ -129,7 +112,7 @@
                                         Konfirmasi</option>
                                     <option value="sedang dikerjakan" @if ($pengerjaans->status == 'sedang dikerjakan'? 'selected' : '') selected @endif>
                                         Sedang di Kerjakan</option>
-                                    <option value="pending" @if ($pengerjaans->status == 'peding'? 'selected' : '') selected @endif>
+                                    <option value="pending" @if ($pengerjaans->status == 'pending'? 'selected' : '') selected @endif>
                                         Pending</option>
                                     <option value="selesai" @if ($pengerjaans->status == 'selesai'? 'selected' : '') selected @endif>Selesai
                                     </option>
@@ -137,7 +120,8 @@
 
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        
+                        <div class="col-md-6">
                             <!-- Tanggal Update Input -->
                             <label for="tanggal_update">Tanggal Update</label>
                             <div class="input-group mb-3">
@@ -153,18 +137,7 @@
                                     value="{{ old('tanggal_selesai', $pengerjaans->tanggal_selesai) }}">
                             </div>
                         </div> --}}
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <!-- Keterangan Input -->
-                            <label for="keterangan">Keterangan</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control"
-                                    value="{{ old('keterangan', $pengerjaans->keterangan) }}" name="keterangan"
-                                    placeholder="Keterangan">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <!-- Alat ID Input -->
                             <label for="teknisi_id">Teknisi</label>
                             <div class="input-group mb-3">
@@ -184,8 +157,42 @@
                                 @enderror
                             </div>
                         </div>
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Keterangan Input -->
+                            <label for="keterangan">Keterangan</label>
+                            <div class="input-group mb-3">
+                                <textarea class="form-control @error('keterangan') is-invalid @enderror" name="keterangan"
+                                    rows="4" placeholder="Deskripsi Pengerjaan">{{ old('keterangan', $pengerjaans->keterangan) }}</textarea>
+                                @error('keterangan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Estimasi Pengerjaan Input -->
+                            <label for="estimasi_pengerjaan">Estimasi Pengerjaan</label>
+                            <div class="input-group mb-3">
+                                <input type="text"
+                                    class="form-control @error('estimasi_pengerjaan') is-invalid @enderror"
+                                    name="estimasi_pengerjaan"
+                                    value="{{ old('estimasi_pengerjaan', $pengerjaans->estimasi_pengerjaan) }}"
+                                    placeholder="Estimasi Pengerjaan">
+                                @error('estimasi_pengerjaan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        
 
                     </div>
+                    
                     <div class="row">
                         <div class="col-md-12">
                             <!-- Deskripsi Pengerjaan Input -->
@@ -204,7 +211,7 @@
                     </div>
                     <div class="card-footer d-flex justify-content-end">
                         <a href="/working-order" class="btn btn-danger mr-2"><i class="fas fa-times"></i> Batal</a>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
                     </div>
                 </form>
             </div>
