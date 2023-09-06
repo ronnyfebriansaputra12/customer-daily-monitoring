@@ -8,6 +8,7 @@ use App\Models\Teknisi;
 use App\Models\Pengerjaan;
 use App\Models\WorkingOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class WorkingOrderController extends Controller
@@ -17,10 +18,20 @@ class WorkingOrderController extends Controller
      */
     public function index()
     {
-        $workingOrders = WorkingOrder::all();
-        return view('workingOrder.index',[
-            'workingOrders' => $workingOrders
-        ]);
+        $role = Auth::user()->role;
+        $user_id = Auth::user()->id;
+
+        if ($role == 'admin') {
+            $workingOrders = WorkingOrder::all();
+            return view('workingOrder.index', [
+                'workingOrders' => $workingOrders
+            ]);
+        } elseif ($role == 'user') {
+            $workingOrders = WorkingOrder::where('user_id', $user_id)->get();
+            return view('workingOrder.index', [
+                'workingOrders' => $workingOrders
+            ]);
+        }
     }
 
     /**
@@ -46,7 +57,8 @@ class WorkingOrderController extends Controller
         return redirect('/working-order');
     }
 
-    function pengerjaan($id) {
+    function pengerjaan($id)
+    {
         $workingOrder = WorkingOrder::find($id);
         $user = User::find($workingOrder->user_id);
         $pengkerjaan = Pengerjaan::find($id);
@@ -60,10 +72,9 @@ class WorkingOrderController extends Controller
             'teknisis' => $teknisi,
             'user' => $user
         ]);
-
     }
 
-    
+
 
 
 
