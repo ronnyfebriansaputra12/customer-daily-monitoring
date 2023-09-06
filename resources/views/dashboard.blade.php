@@ -81,7 +81,7 @@
                             <div class="timeline">
                                 @foreach ($deskripsiByWorkingOrder[$workingOrder] as $value)
                                     @php
-                                        $created_at = $value->pengerjaan->tanggal_update;
+                                        $created_at = $value->tanggal_update;
                                         $days_in_indonesian = [
                                             'Sunday' => 'Minggu',
                                             'Monday' => 'Senin',
@@ -125,11 +125,58 @@
                                             <h3 class="timeline-header">{{ $value->pengerjaan->teknisi->nama_teknisi }}
                                             </h3>
                                             <div class="timeline-body">
+                                                <table class="table">
+                                                    <tr>
+                                                        <th>Customer</th>
+                                                        <td>:</td>
+                                                        <td>{{ $value->pengerjaan->user->name }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>No Working Order</th>
+                                                        <td>:</td>
+                                                        <td>{{ $value->pengerjaan->no_working_order }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Unit / Engine</th>
+                                                        <td>:</td>
+                                                        <td>{{ $value->pengerjaan->unit_engine }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Serial Number</th>
+                                                        <td>:</td>
+                                                        <td>{{ $value->pengerjaan->serial_number }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Tanggal Masuk</th>
+                                                        <td>:</td>
+                                                        <td>{{ strtoupper($value->pengerjaan->tanggal_masuk) }}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>Estimasi Pengerjaan</th>
+                                                        <td>:</td>
+                                                        <td>{{ $value->pengerjaan->estimasi_pengerjaan }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Keterangan</th>
+                                                        <td>:</td>
+                                                        <td>{{ $value->keterangan }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Deskripsi Pekerjaan</th>
+                                                        <td>:</td>
+                                                        <td>{{ $value->deskripsi_pekerjaan }}</td>
+                                                    </tr>
+                                                </table>
+
+
+                                                {{-- <p><strong>Nama Alat:</strong> {{ $value->pengerjaan->unit_engine }}</p>
+                                                <p><strong>Serial Number:</strong> {{ $value->pengerjaan->serial_number }}
+                                                </p>
                                                 <p><strong>Deskripsi:</strong> {{ $value->deskripsi_pekerjaan }}</p>
                                                 <p><strong>Keterangan:</strong> {{ $value->keterangan }}</p>
                                                 <p><strong>Tanggal Masuk:</strong> {{ $value->pengerjaan->tanggal_masuk }}
-                                                </p>
-                                                <p><strong>Tanggal Update:</strong> {{ $value->tanggal_update }}</p>
+                                                </p> --}}
                                             </div>
                                         </div>
                                     </div>

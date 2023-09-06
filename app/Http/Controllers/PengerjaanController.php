@@ -68,7 +68,8 @@ class PengerjaanController extends Controller
         $deskripsi_pekerjaan = [
             'deskripsi_pekerjaan' => $request->deskripsi_pekerjaan,
             'pengerjaan_id' => $pengerjaan_id, // Assign the pengerjaan_id
-            'keterangan' => $request->keterangan
+            'keterangan' => $request->keterangan,
+            'tanggal_update' =>$request->tanggal_update
         ];
 
         DeskirpsiPekerjaan::create($deskripsi_pekerjaan);
