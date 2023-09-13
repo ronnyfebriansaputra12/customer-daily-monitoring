@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('deskirpsi_pekerjaans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pengerjaan_id')->constrained('pengerjaans')->onDelete('cascade');
-            $table->string('deskripsi_pekerjaan');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('deskripsi_pekerjaan')->nullable();
             $table->string('keterangan')->nullable();
-            $table->date('tanggal_update')->nullable();
+            $table->string('catatan')->nullable();
+            $table->date('tanggal_mulai_pengerjaan')->nullable();
+            $table->date('tanggal_selesai_perpengerjaan')->nullable();
             $table->enum('status', ['belum konfirmasi', 'sedang dikerjakan','pending', 'selesai'])->nullable();
+            $table->enum('status_perpengerjaan', ['sedang dikerjakan','selesai'])->default('sedang dikerjakan');
             $table->timestamps();
         });
     }

@@ -121,7 +121,8 @@
                                 <!-- Tanggal Update Input -->
                                 <label for="tanggal_update">Tanggal Update</label>
                                 <div class="input-group mb-3">
-                                    <input type="date" class="form-control" name="tanggal_update" value="{{$date}}">
+                                    <input type="date" class="form-control" name="tanggal_update"
+                                        value="{{ $date }}">
                                 </div>
                             </div>
                         </div>
@@ -159,36 +160,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- Keterangan Input -->
-                            <label for="keterangan">Keterangan</label>
-                            <div class="input-group mb-3">
-                                <textarea class="form-control @error('keterangan') is-invalid @enderror" name="keterangan" rows="4"
-                                    placeholder="Keterangan"></textarea>
-                                @error('keterangan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- Deskripsi Pengerjaan Input -->
-                            <label for="deskripsi_pekerjaan">Deskripsi Pengerjaan</label>
-                            <div class="input-group mb-3">
-                                <textarea class="form-control @error('deskripsi_pekerjaan') is-invalid @enderror" name="deskripsi_pekerjaan"
-                                    rows="4" placeholder="Deskripsi Pengerjaan"></textarea>
-                                @error('deskripsi_pekerjaan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
+
             </div>
             <div class="card-footer d-flex justify-content-end">
                 <a href="/working-order" class="btn btn-danger mr-2"><i class="fas fa-times"></i> Batal</a>

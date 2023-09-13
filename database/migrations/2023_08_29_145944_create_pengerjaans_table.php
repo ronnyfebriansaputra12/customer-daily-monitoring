@@ -19,11 +19,10 @@ return new class extends Migration
             $table->string('serial_number',100);
             $table->foreignId('teknisi_id')->constrained('teknisis')->onDelete('cascade');
             $table->foreignId('user_admin_id')->constrained('users')->onDelete('cascade');
-            $table->string('deskripsi_pekerjaan')->nullable();
             $table->string('estimasi_pengerjaan')->nullable();
-            $table->string('keterangan')->nullable();
             $table->date('tanggal_masuk')->nullable();
             $table->date('tanggal_update')->nullable();
+            $table->string('keterangan')->nullable();
             $table->enum('status', ['belum konfirmasi', 'sedang dikerjakan','pending', 'selesai'])->nullable();
             $table->timestamps();
             $table->foreign('no_working_order')->references('no_working_order')->on('working_orders')->onDelete('cascade');

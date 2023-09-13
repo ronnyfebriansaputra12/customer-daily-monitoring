@@ -45,38 +45,66 @@ class PengerjaanController extends Controller
             'user_id' => 'required|integer',
             'user_admin_id' => 'required|integer',
             'tanggal_masuk' => 'required|date',
-            'tanggal_update' => 'required|date',
-            'keterangan' => 'required|max:255',
             'status' => 'required|max:255',
             'estimasi_pengerjaan' => 'required',
-            'deskripsi_pekerjaan' => 'max:255'
+
         ]);
 
         $no_working_order = $validatedData['no_working_order'];
+        // $user_id = $validatedData['user_id'];
+        Pengerjaan::create($validatedData);
 
         // Update the status of the related WorkingOrder
         WorkingOrder::where('no_working_order', $no_working_order)->update([
             'status' => 'proses'
         ]);
 
-        $validatedData['tanggal_update'] = $request->tanggal_masuk;
-
-        // Create a new Pengerjaan and get its ID
-        $pengerjaan = Pengerjaan::create($validatedData);
-        $pengerjaan_id = $pengerjaan->id;
-
-        $deskripsi_pekerjaan = [
-            'deskripsi_pekerjaan' => $request->deskripsi_pekerjaan,
-            'pengerjaan_id' => $pengerjaan_id, // Assign the pengerjaan_id
-            'keterangan' => $request->keterangan,
-            'tanggal_update' =>$request->tanggal_update
-        ];
-
-        DeskirpsiPekerjaan::create($deskripsi_pekerjaan);
-
+        // DeskirpsiPekerjaan::where('user_id', $user_id)->update([
+        //     'status_perpengerjaan' => 'sedang dikerjakan'
+        // ]);
         toast('Working Order Berhasil Ditambahkan', 'success');
         return redirect('/pengerjaan');
     }
+
+    function insertDeskripsi($id)
+    {
+        $pengerjaan = Pengerjaan::find($id);
+        return view('deskripsi-pekerjaan.create', [
+            'pengerjaan' => $pengerjaan,
+            'id' => $id,
+        ]);
+    }
+
+    function insertDeskripsiProses(Request $request)
+    {
+        // dd($request->all());
+        // Validasi data input
+        $validatedData = $request->validate([
+            'deskripsi_pekerjaan' => 'required',
+            'keterangan' => 'required',
+            'tanggal_selesai_perpengerjaan' => 'required|date',
+            'pengerjaan_id' => 'required',
+            'user_id' => 'required',
+            'tanggal_mulai_pengerjaan' => 'required'
+        ]);
+
+        // Data yang akan disimpan dalam database
+        $dataToInsert = [
+            'deskripsi_pekerjaan' => $request->input('deskripsi_pekerjaan'),
+            'keterangan' => $request->input('keterangan'),
+            'tanggal_selesai_perpengerjaan' => $request->input('tanggal_selesai_perpengerjaan'),
+            'pengerjaan_id' => $request->input('pengerjaan_id'),
+            'user_id' => $request->input('user_id'),
+            'tanggal_mulai_pengerjaan' => $request->input('tanggal_mulai_pengerjaan'),
+        ];
+
+        // Simpan data ke dalam database menggunakan model DeskripsiPekerjaan
+        DeskirpsiPekerjaan::create($dataToInsert);
+
+        // Redirect ke halaman yang sesuai setelah penyimpanan data
+        return redirect('/deskripsi-pekerjaan');
+    }
+
 
 
     /**
@@ -84,8 +112,8 @@ class PengerjaanController extends Controller
      */
     public function show($id)
     {
-        $pengerjaan = Pengerjaan::where('id',$id)->get();
-        return view('pengerjaan.detail',compact('pengerjaan'));
+        $pengerjaan = Pengerjaan::where('id', $id)->get();
+        return view('pengerjaan.detail', compact('pengerjaan'));
     }
 
     /**
@@ -104,6 +132,7 @@ class PengerjaanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
             'no_working_order' => 'required',
             'unit_engine' => 'required',
@@ -112,11 +141,8 @@ class PengerjaanController extends Controller
             'user_id' => 'required|integer',
             'user_admin_id' => 'required|integer',
             'tanggal_masuk' => 'required|date',
-            'tanggal_update' => 'required|date',
-            'keterangan' => 'required|max:255',
             'status' => 'required|max:255',
-            'estimasi_pengerjaan' => 'required',
-            'deskripsi_pekerjaan' => 'max:255'
+            'keterangan' => 'required'
         ]);
 
         // Find the existing Pengerjaan by its ID
@@ -125,21 +151,9 @@ class PengerjaanController extends Controller
         // Update the Pengerjaan with the validated data
         $pengerjaan->update($validatedData);
 
-        // Update the related DeskripsiPekerjaan
-        $deskripsi_pekerjaan = [
-            'deskripsi_pekerjaan' => $request->deskripsi_pekerjaan,
-            'pengerjaan_id' => $pengerjaan->id,
-            'tanggal_update' => $request->tanggal_update,
-            'status' => $request->status,
-            'keterangan' => $request->keterangan
-        ];
-
-        // Find or create DeskripsiPekerjaan based on pengerjaan_id
-        DeskirpsiPekerjaan::create($deskripsi_pekerjaan);
-
         $history = [
             'pengerjaan_id' => $pengerjaan->id,
-            'keterangan' => $request->keterangan,
+            'keterangan' => $request->keterangan
         ];
 
         if ($request->status == 'selesai') {

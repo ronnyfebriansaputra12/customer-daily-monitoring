@@ -19,4 +19,9 @@ class DeskirpsiPekerjaan extends Model
     {
         return $this->belongsTo(Alat::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

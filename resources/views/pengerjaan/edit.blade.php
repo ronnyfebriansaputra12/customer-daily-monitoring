@@ -120,23 +120,6 @@
 
                             </div>
                         </div>
-                        
-                        <div class="col-md-6">
-                            <!-- Tanggal Update Input -->
-                            <label for="tanggal_update">Tanggal Update</label>
-                            <div class="input-group mb-3">
-                                <input type="date" class="form-control" name="tanggal_update"
-                                    value="{{ old('tanggal_update', $pengerjaans->tanggal_update) }}">
-                            </div>
-                        </div>
-                        <!-- Tambahkan ini di bawah elemen "select" -->
-                        {{-- <div id="tanggal_selesai_div" class="col-md-12" style="display: none;">
-                            <label for="tanggal_selesai">Tanggal Selesai</label>
-                            <div class="input-group mb-3">
-                                <input type="date" class="form-control" name="tanggal_selesai"
-                                    value="{{ old('tanggal_selesai', $pengerjaans->tanggal_selesai) }}">
-                            </div>
-                        </div> --}}
                         <div class="col-md-6">
                             <!-- Alat ID Input -->
                             <label for="teknisi_id">Teknisi</label>
@@ -157,10 +140,10 @@
                                 @enderror
                             </div>
                         </div>
-                       
+                    
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <!-- Keterangan Input -->
                             <label for="keterangan">Keterangan</label>
                             <div class="input-group mb-3">
@@ -173,41 +156,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <!-- Estimasi Pengerjaan Input -->
-                            <label for="estimasi_pengerjaan">Estimasi Pengerjaan</label>
-                            <div class="input-group mb-3">
-                                <input type="text"
-                                    class="form-control @error('estimasi_pengerjaan') is-invalid @enderror"
-                                    name="estimasi_pengerjaan"
-                                    value="{{ old('estimasi_pengerjaan', $pengerjaans->estimasi_pengerjaan) }}"
-                                    placeholder="Estimasi Pengerjaan">
-                                @error('estimasi_pengerjaan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                        
 
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- Deskripsi Pengerjaan Input -->
-                            <label for="deskripsi_pekerjaan">Deskripsi Pengerjaan</label>
-                            <div class="input-group mb-3">
-                                <!-- Display the value of deskripsi_pekerjaan using a textarea -->
-                                <textarea class="form-control @error('deskripsi_pekerjaan') is-invalid @enderror" name="deskripsi_pekerjaan"
-                                    rows="4" placeholder="Deskripsi Pengerjaan">{{ old('deskripsi_pekerjaan', $pengerjaans->deskripsi_pekerjaan) }}</textarea>
-                                @error('deskripsi_pekerjaan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
                     </div>
                     <div class="card-footer d-flex justify-content-end">
                         <a href="/working-order" class="btn btn-danger mr-2"><i class="fas fa-times"></i> Batal</a>

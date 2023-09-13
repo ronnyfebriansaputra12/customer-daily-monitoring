@@ -154,10 +154,10 @@ class AuthController extends Controller
             'password_confirmation' => bcrypt($request->password_confirmation),
         ]);
 
-        event(new Registered($user));
+        // event(new Registered($user));
         toast('Register Berhasil', 'success');
         Auth::login($user);
-        return redirect('/dashboard');
+        return redirect('/');
     }
 
     function Logout()

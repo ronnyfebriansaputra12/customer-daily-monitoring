@@ -30,18 +30,18 @@ Route::post('/login', 'App\Http\Controllers\AuthController@loginProses');
 Route::get('/register', 'App\Http\Controllers\AuthController@register');
 Route::post('/register', 'App\Http\Controllers\AuthController@registerProses');
 
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('isLogin')->name('verification.notice');
+// Route::get('/email/verify', function () {
+//     return view('auth.verify-email');
+// })->middleware('isLogin')->name('verification.notice');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    Alert::toast('Email Berhasil Diverifikasi', 'success');
-    return redirect('/');
-})->middleware(['isLogin', 'signed'])->name('verification.verify');
+// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+//     $request->fulfill();
+//     Alert::toast('Email Berhasil Diverifikasi', 'success');
+//     return redirect('/');
+// })->name('verification.verify');
 
 
-Route::middleware(['isLogin', 'verified'])->group(function () {
+Route::middleware(['isLogin'])->group(function () {
 
     Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index');
     Route::get('/alat', 'App\Http\Controllers\AlatController@index');
@@ -69,6 +69,8 @@ Route::middleware(['isLogin', 'verified'])->group(function () {
 
     Route::get('/pengerjaan', 'App\Http\Controllers\PengerjaanController@index');
     Route::post('/pengerjaan', 'App\Http\Controllers\PengerjaanController@store');
+    Route::get('/pengerjaan/deskripsi/{id}', 'App\Http\Controllers\PengerjaanController@insertDeskripsi');
+    Route::post('/pengerjaan/deskripsi/insert', 'App\Http\Controllers\PengerjaanController@insertDeskripsiProses');
     Route::get('/pengerjaan/{id}', 'App\Http\Controllers\PengerjaanController@show');
     Route::get('/pengerjaan/edit/{pengerjaan}', 'App\Http\Controllers\PengerjaanController@edit');
     Route::put('/pengerjaan/{id}', 'App\Http\Controllers\PengerjaanController@update');
@@ -86,7 +88,8 @@ Route::middleware(['isLogin', 'verified'])->group(function () {
     Route::get('/history/delete/{id}', 'App\Http\Controllers\HistoryController@destroy');
 
     Route::get('/deskripsi-pekerjaan', 'App\Http\Controllers\DeskirpsiPekerjaanController@index');
-    Route::post('/deskripsi-pekerjaan', 'App\Http\Controllers\DeskirpsiPekerjaanController@store');
-    Route::get('/deskripsi-pekerjaan/{id}', 'App\Http\Controllers\DeskirpsiPekerjaanController@show');
+    // Route::post('/deskripsi-pekerjaan', 'App\Http\Controllers\DeskirpsiPekerjaanController@store');
+    Route::put('/deskripsi/update/{id}', 'App\Http\Controllers\DeskirpsiPekerjaanController@update');
+    // Route::get('/deskripsi-pekerjaan/{id}', 'App\Http\Controllers\DeskirpsiPekerjaanController@show');
     Route::get('/deskripsi-pekerjaan/delete/{alat}', 'App\Http\Controllers\DeskirpsiPekerjaanController@destroy');
 });
