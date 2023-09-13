@@ -8,7 +8,7 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-12 col-md-4">
+            <div class="col-md-12">
                 <div class="card">
                     <h4 class="text-center font-weight-bold mt-3" style="font-family:cursive;">Detail</h4>
                     <hr>
@@ -23,7 +23,7 @@
                                 <td>
                                     <h6 style="font-family: cursive">Nama Customer</h6>
                                 </td>
-                                <td>:</td>
+                                <td> : </td>
                                 <td>
                                     <h6><i class="fas fa-person">{{ $pengerjaan->user->name }}</i></h6>
                                 </td>
@@ -32,7 +32,7 @@
                                 <td>
                                     <h6 style="font-family: cursive">Tanggal Masuk</h6>
                                 </td>
-                                <td>:</td>
+                                <td> : </td>
                                 <td>
                                     <h6><i class="fas fa-person"> {{ $pengerjaan->tanggal_masuk }}</i></h6>
                                 </td>
@@ -41,7 +41,7 @@
                                 <td>
                                     <h6 style="font-family: cursive">Estimasi Pengerjaan</h6>
                                 </td>
-                                <td>:</td>
+                                <td> : </td>
                                 <td>
                                     <h6><i class="fas fa-person"> {{ $pengerjaan->estimasi_pengerjaan }}</i></h6>
                                 </td>
@@ -50,16 +50,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <h4 class="text-center font-weight-bold mt-3" style="font-family:cursive;">Deskripsi Pekerjaan</h4>
                     <hr>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4 mt-4">
+                            {{-- <div class="col-md-4 mt-4">
                                 <button type="button" class="btn btn-primary"
                                     onclick="tambahInputDeskripsi()">Tambah</button>
-                            </div>
+                            </div> --}}
                             <form class="row" action="/pengerjaan/deskripsi/insert" method="post"
                                 enctype="multipart/form-data">
                                 @csrf
