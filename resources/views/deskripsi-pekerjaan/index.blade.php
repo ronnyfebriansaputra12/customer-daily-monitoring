@@ -29,7 +29,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $p->pengerjaan->no_working_order }}</td>
-                                <td>{{ $p->deskripsi_pekerjaan }}</td>
+                                <td>{{ $p->deskripsi_pekerjaan ?? "-" }}</td>
                                 <td>{{ $p->keterangan }}</td>
                                 <td>{{ $p->catatan }}</td>
                                 <td>{{ $p->status_perpengerjaan }}</td>

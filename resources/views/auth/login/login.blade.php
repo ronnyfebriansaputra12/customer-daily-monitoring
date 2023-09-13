@@ -4,8 +4,9 @@
 
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
-        <div class="text-center mt-3">
-            <img src="{{ asset('AdminLTE') }}/dist/img/poli.png" width="100px" height="100px" alt="">
+        <div class="text-center">
+            {{-- <img src="{{ asset('AdminLTE') }}/dist/img/poli.png" width="100px" height="100px" alt=""> --}}
+            <img src="{{ asset('AdminLTE') }}/dist/img/logo-tab.png" width="150px" height="150px" alt="">
         </div>
 
         <div class="text-center mt-3">

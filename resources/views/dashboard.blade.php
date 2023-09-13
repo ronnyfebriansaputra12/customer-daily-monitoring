@@ -232,7 +232,7 @@
                                 @endphp
                                 <!-- timeline time label -->
                                 <div class="time-label">
-                                    <span class="bg-red">{{ $formatted_date }}</span>
+                                    <span class="bg-blue">{{ $formatted_date }}</span>
                                 </div>
                                 <!-- /.timeline-label -->
                                 <!-- timeline item -->
@@ -248,28 +248,35 @@
 
                                             <table class="table">
                                                 <tr>
-                                                    <td>Deskripsi Pekerjaan</td>
-                                                    <td> : </td>
-                                                    <td>
-                                                        <p>{{ $p->deskripsi_pekerjaan }}</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
                                                     <td>Keterangan</td>
                                                     <td> : </td>
                                                     <td>
                                                         <p>{{ $p->keterangan }}</p>
                                                     </td>
                                                 </tr>
+
                                                 <tr>
                                                     <td>
                                                         Tanggal Estimasi Selesai
                                                     </td>
                                                     <td> : </td>
                                                     <td>
-                                                        <p>{{ $p->tanggal_selesai_perpengerjaan }}</p>
+                                                        <?php
+                                                        // Ubah format tanggal dari $p->tanggal_selesai_perpengerjaan (misalnya '2023-09-14') ke '14 September 2023'
+                                                        $tanggal_selesai_perpengerjaan = date('d F Y', strtotime($p->tanggal_selesai_perpengerjaan));
+                                                        ?>
+                                                        <p>{{ $tanggal_selesai_perpengerjaan }}</p>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Deskripsi Pekerjaan</td>
+                                                    <td> : </td>
+                                                    <td>
+                                                        <p>{{ $p->deskripsi_pekerjaan }}</p>
                                                     </td>
                                                 </tr>
+
                                                 <tr>
                                                     <td>
                                                         Status

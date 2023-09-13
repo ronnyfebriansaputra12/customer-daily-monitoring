@@ -2,7 +2,7 @@
 <aside class="main-sidebar elevation-4 sidebar-light-warning">
     <!-- Brand Logo -->
     <a href="/dashboard" class="brand-link" style="text-decoration: none; ">
-        <img src="{{ asset('AdminLTE') }}/dist/img/poli.png" width="150px" alt="AdminLTE Logo"
+        <img src="{{ asset('AdminLTE') }}/dist/img/logo-tab.png" width="150px" alt="AdminLTE Logo"
             class="brand-image img-circle">
         <span class="brand-text font-weight-black" style="font-size: 15px;">Customer Daily Monitoring</span>
 

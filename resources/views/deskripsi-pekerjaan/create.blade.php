@@ -8,10 +8,11 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-md-12">
+            {{-- <div class="col-md-3">
                 <div class="card">
-                    <h4 class="text-center font-weight-bold mt-3" style="font-family:cursive;">Detail</h4>
-                    <hr>
+                    <div class="card-header">
+                        <h4 class="text-center font-weight-bold mt-3">Detail</h4>
+                    </div>
                     <div class="card-body">
                         <h5 class="text-center" style="font-family: cursive">
                             <b> Unit / Engine</b>
@@ -49,11 +50,37 @@
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12">
+            </div> --}}
+            <div class="col-md-3">
                 <div class="card">
-                    <h4 class="text-center font-weight-bold mt-3" style="font-family:cursive;">Deskripsi Pekerjaan</h4>
-                    <hr>
+                    <div class="card-header bg-dark">
+                        <h4 class="text-center font-weight-bold mt-3">Detail</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="text-center">
+                            <b>Unit / Engine:</b>
+                            <p>{{ $pengerjaan->unit_engine }} - {{ $pengerjaan->serial_number }}</p>
+                        </h5>
+                        <hr>
+                        <h6 >Nama Customer:</h6>
+                        <p><i class="fas fa-person">{{ $pengerjaan->user->name }}</i></p>
+            
+                        <h6>Tanggal Masuk:</h6>
+                        <p><i class="fas fa-person"> {{ $pengerjaan->tanggal_masuk }}</i></p>
+            
+                        <h6>Estimasi Pengerjaan:</h6>
+                        <p><i class="fas fa-person"> {{ $pengerjaan->estimasi_pengerjaan }}</i></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header bg-dark">
+
+                        <h4 class="text-center font-weight-bold mt-3">Deskripsi Pekerjaan</h4>
+                    </div>
+                   
                     <div class="card-body">
                         <div class="row">
                             {{-- <div class="col-md-4 mt-4">
@@ -104,8 +131,8 @@
                                         <!-- Keterangan Input -->
                                         <label for="keterangan">Keterangan</label>
                                         <div class="input-group mb-3">
-                                            <textarea class="form-control @error('keterangan') is-invalid @enderror" name="keterangan" rows="4"
-                                                placeholder="Keterangan"></textarea>
+                                            <input class="form-control @error('keterangan') is-invalid @enderror" name="keterangan"
+                                                placeholder="Keterangan">
                                             @error('keterangan')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}

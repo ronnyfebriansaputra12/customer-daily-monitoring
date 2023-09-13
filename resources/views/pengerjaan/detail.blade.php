@@ -46,16 +46,6 @@
                             <td>{{ $item->estimasi_pengerjaan }}</td>
                         </tr>
                         <tr>
-                            <th>Keterangan</th>
-                            <td>:</td>
-                            <td>{{ $item->keterangan }}</td>
-                        </tr>
-                        <tr>
-                            <th>Deskripsi Pekerjaan</th>
-                            <td>:</td>
-                            <td>{{ $item->deskripsi_pekerjaan }}</td>
-                        </tr>
-                        <tr>
                             @if ($item->status == 'Belum Konfirmasi')
                                 <th>Status</th>
                                 <td>:</td>
@@ -67,7 +57,7 @@
                             @elseif ($item->status == 'sedang dikerjakan')
                                 <th>Status</th>
                                 <td>:</td>
-                                <td><span class="badge bg-info">On Proggress</span></td>
+                                <td><span class="badge bg-info">Sedang di kerjakan</span></td>
                             @elseif ($item->status == 'selesai')
                                 <th>Status</th>
                                 <td>:</td>
