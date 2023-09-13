@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambahkan Deskripsi</title>
+</head>
+<body>
+    <h1>Tambahkan Deskripsi</h1>
+    <form id="deskripsi-form">
+        <div id="deskripsi-container">
+            <input type="text" class="deskripsi-input" placeholder="Masukkan Deskripsi">
+        </div>
+        <button type="button" onclick="tambahInputDeskripsi()">Tambah</button>
+    </form>
+
+    <script>
+        function tambahInputDeskripsi() {
+            var deskripsiContainer = document.getElementById('deskripsi-container');
+            var inputBaru = document.createElement('input');
+            inputBaru.type = 'text';
+            inputBaru.className = 'deskripsi-input';
+            inputBaru.placeholder = 'Masukkan Deskripsi Baru';
+            deskripsiContainer.appendChild(inputBaru);
+        }
+    </script>
+</body>
+</html>

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DeskirpsiPekerjaan;
 use Illuminate\Http\Request;
+use App\Models\DeskirpsiPekerjaan;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DeskirpsiPekerjaanController extends Controller
 {
@@ -13,7 +14,7 @@ class DeskirpsiPekerjaanController extends Controller
     public function index()
     {
         $deskirpsiPekerjaans = DeskirpsiPekerjaan::all();
-        return view('deskripsi-pekerjaan.index',compact('deskirpsiPekerjaans'));
+        return view('deskripsi-pekerjaan.index', compact('deskirpsiPekerjaans'));
     }
 
     /**
@@ -51,9 +52,25 @@ class DeskirpsiPekerjaanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DeskirpsiPekerjaan $deskirpsiPekerjaan)
+    public function update(Request $request,$id)
     {
-        //
+        // Validate the request data
+        $validatedData = $request->validate([
+            'deskripsi_pekerjaan' => 'required',
+            'keterangan' => 'required',
+            'status_perpengerjaan' => 'required',
+            'catatan' => 'required'
+        ]);
+        try {
+            $deskirpsiPekerjaan = DeskirpsiPekerjaan::findOrFail($id);
+            $deskirpsiPekerjaan->update($validatedData);
+            toast('Data berhasil diupdate','success');
+            return redirect('/deskripsi-pekerjaan');
+    
+        } catch (\Exception $e) {
+            Alert::toast('Gagal mengubah data', 'error');
+            return back()->withErrors(['error' => 'Gagal mengubah data.']);
+        }
     }
 
     /**

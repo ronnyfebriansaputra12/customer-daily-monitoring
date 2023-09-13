@@ -63,7 +63,27 @@ class WorkingOrderController extends Controller
         $user = User::find($workingOrder->user_id);
         $pengkerjaan = Pengerjaan::find($id);
         $alat = Alat::all();
-        $teknisi = Teknisi::all();
+        // Mengambil semua pengerjaan
+        $pengerjaan = Pengerjaan::all();
+
+        // Menyimpan ID teknisi yang sudah ada dalam semua pengerjaan
+        $existingTeknisiIds = $pengerjaan->pluck('teknisi_id')->toArray();
+
+        // Inisialisasi daftar teknisi yang akan ditampilkan
+        $teknisi = Teknisi::whereNotIn('id', $existingTeknisiIds);
+
+        // Membuat daftar ID pengerjaan yang memiliki status "selesai"
+        $pengerjaanSelesaiIds = $pengerjaan->where('status', 'selesai')->pluck('id')->toArray();
+
+        // Jika ada pengerjaan dengan status "selesai", maka teknisi yang sudah ada ditambahkan kembali ke daftar
+        if (!empty($pengerjaanSelesaiIds)) {
+            $teknisi->orWhereIn('id', $existingTeknisiIds);
+        }
+
+        $teknisi = $teknisi->get();
+
+
+
         return view('pengerjaan.create', [
             'workingOrder' => $workingOrder,
             'pengkerjaan' => $pengkerjaan,

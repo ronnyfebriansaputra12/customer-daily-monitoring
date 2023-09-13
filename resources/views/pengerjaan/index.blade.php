@@ -32,7 +32,12 @@
                             @foreach ($pengerjaans as $p)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $p->no_working_order }}</td>
+                                    @if (Auth::user()->role == 'admin')
+                                        <td><a href="{{ url('pengerjaan/deskripsi/' . $p->id) }}"
+                                                style="text-decoration: none;">{{ $p->no_working_order }} - {{ $p->id }}</a></td>
+                                    @else
+                                        <td>{{ $p->no_working_order }} - {{ $p->id }}</a></td>
+                                    @endif
                                     <td>{{ $p->user->name }}</td>
                                     <td>{{ $p->unit_engine }}</td>
                                     <td>{{ $p->tanggal_masuk }}</td>
@@ -48,7 +53,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <div >
+                                        <div>
                                             <a href="{{ url('pengerjaan', $p->id) }}" class="btn btn-info btn-sm btn-detail"
                                                 title="Detail">
                                                 <i class="fa fa-eye"></i>
@@ -112,7 +117,7 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-               
+
             });
             $('#example2').DataTable({
                 "paging": true,
