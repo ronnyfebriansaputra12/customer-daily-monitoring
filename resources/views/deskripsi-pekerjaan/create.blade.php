@@ -62,6 +62,9 @@
                             <p>{{ $pengerjaan->unit_engine }} - {{ $pengerjaan->serial_number }}</p>
                         </h5>
                         <hr>
+                        <h6>Keterangan : </h6>
+                        <p>{{ $pengerjaan->keterangan }}</p>
+                        <hr>
                         <h6 >Nama Customer:</h6>
                         <p><i class="fas fa-person">{{ $pengerjaan->user->name }}</i></p>
             
@@ -121,19 +124,6 @@
                                                 id="pengerjaan_id" placeholder="Kode Barang"
                                                 value="{{ old('pengerjaan_id', $id) }}" autofocus>
                                             @error('pengerjaan_id')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <!-- Keterangan Input -->
-                                        <label for="keterangan">Keterangan</label>
-                                        <div class="input-group mb-3">
-                                            <input class="form-control @error('keterangan') is-invalid @enderror" name="keterangan"
-                                                placeholder="Keterangan">
-                                            @error('keterangan')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>

@@ -191,7 +191,7 @@
                         aria-expanded="true" aria-controls="collapseOne">
                         WO : {{ $item->no_working_order }} | Unit / Engine :
                         {{ $item->unit_engine }} | Serial Number :
-                        {{ $item->serial_number }}
+                        {{ $item->serial_number }} | Deskripsi : {{ $item->keterangan }}
 
                     </button>
                 </h2>
@@ -246,14 +246,7 @@
 
                                         <div class="timeline-body">
 
-                                            <table class="table">
-                                                <tr>
-                                                    <td>Keterangan</td>
-                                                    <td> : </td>
-                                                    <td>
-                                                        <p>{{ $p->keterangan }}</p>
-                                                    </td>
-                                                </tr>
+                                            <table class="table-responsive">
 
                                                 <tr>
                                                     <td>
@@ -284,9 +277,17 @@
                                                     <td> : </td>
                                                     <td>
                                                         @if ($p->status_perpengerjaan == 'sedang dikerjakan')
-                                                            <span class="badge bg-warning">Sedang Dikerjakan</span>
+                                                            @if (strtotime($p->tanggal_selesai_perpengerjaan) >= strtotime(date('Y-m-d')))
+                                                                <span class="badge bg-warning">Sedang Dikerjakan</span>
+                                                            @else
+                                                                <span class="badge bg-danger">Sedang Dikerjakan</span>
+                                                            @endif
+                                                        @elseif ($p->status_perpengerjaan == 'belum dikerjakan')
+                                                            <span class="badge bg-danger">Belum Dikerjakan</span>
                                                         @elseif ($p->status_perpengerjaan == 'selesai')
                                                             <span class="badge bg-success">Selesai</span>
+                                                        @elseif ($p->status_perpengerjaan == 'pending')
+                                                            <span class="badge bg-black">Pending</span>
                                                         @endif
                                                     </td>
                                                 </tr>

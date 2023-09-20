@@ -44,10 +44,10 @@ Route::post('/register', 'App\Http\Controllers\AuthController@registerProses');
 Route::middleware(['isLogin'])->group(function () {
 
     Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index');
-    Route::get('/alat', 'App\Http\Controllers\AlatController@index');
-    Route::post('/alat', 'App\Http\Controllers\AlatController@store');
-    Route::get('/alat/{id}', 'App\Http\Controllers\AlatController@show');
-    Route::get('/alat/delete/{alat}', 'App\Http\Controllers\AlatController@destroy');
+    // Route::get('/alat', 'App\Http\Controllers\AlatController@index');
+    // Route::post('/alat', 'App\Http\Controllers\AlatController@store');
+    // Route::get('/alat/{id}', 'App\Http\Controllers\AlatController@show');
+    // Route::get('/alat/delete/{alat}', 'App\Http\Controllers\AlatController@destroy');
 
     Route::get('/working-order', 'App\Http\Controllers\WorkingOrderController@index');
     Route::get('/working-order/pengerjaan/{id}', 'App\Http\Controllers\WorkingOrderController@pengerjaan');
@@ -91,5 +91,5 @@ Route::middleware(['isLogin'])->group(function () {
     // Route::post('/deskripsi-pekerjaan', 'App\Http\Controllers\DeskirpsiPekerjaanController@store');
     Route::put('/deskripsi/update/{id}', 'App\Http\Controllers\DeskirpsiPekerjaanController@update');
     // Route::get('/deskripsi-pekerjaan/{id}', 'App\Http\Controllers\DeskirpsiPekerjaanController@show');
-    Route::get('/deskripsi-pekerjaan/delete/{alat}', 'App\Http\Controllers\DeskirpsiPekerjaanController@destroy');
+    Route::get('/deskripsi-pekerjaan/delete/{id}', 'App\Http\Controllers\DeskirpsiPekerjaanController@destroy');
 });

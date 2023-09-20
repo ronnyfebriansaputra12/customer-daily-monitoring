@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('tanggal_mulai_pengerjaan')->nullable();
             $table->date('tanggal_selesai_perpengerjaan')->nullable();
             $table->enum('status', ['belum konfirmasi', 'sedang dikerjakan','pending', 'selesai'])->nullable();
-            $table->enum('status_perpengerjaan', ['sedang dikerjakan','selesai'])->default('sedang dikerjakan');
+            $table->enum('status_perpengerjaan', ['belum dikerjakan','sedang dikerjakan','pending','selesai'])->default('belum dikerjakan');
             $table->timestamps();
         });
     }

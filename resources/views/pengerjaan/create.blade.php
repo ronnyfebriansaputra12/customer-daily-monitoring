@@ -147,6 +147,7 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <!-- Status Input -->
                             <label for="status">Status</label>
@@ -157,6 +158,19 @@
                                     <option value="pending">Pending</option>
                                     <option value="selesai">Selesai</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <!-- Keterangan Input -->
+                            <label for="keterangan">Keterangan</label>
+                            <div class="input-group mb-3">
+                                <textarea class="form-control @error('keterangan') is-invalid @enderror" name="keterangan" rows="4"
+                                    placeholder="Keterangan"></textarea>
+                                @error('keterangan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                     </div>

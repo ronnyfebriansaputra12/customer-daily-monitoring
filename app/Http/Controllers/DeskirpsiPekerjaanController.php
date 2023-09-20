@@ -57,7 +57,6 @@ class DeskirpsiPekerjaanController extends Controller
         // Validate the request data
         $validatedData = $request->validate([
             'deskripsi_pekerjaan' => 'required',
-            'keterangan' => 'required',
             'status_perpengerjaan' => 'required',
             'catatan' => 'required'
         ]);
@@ -76,8 +75,16 @@ class DeskirpsiPekerjaanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DeskirpsiPekerjaan $deskirpsiPekerjaan)
+    public function destroy($id)
     {
-        //
+        try {
+            $deskirpsiPekerjaan = DeskirpsiPekerjaan::findOrFail($id);
+            $deskirpsiPekerjaan->delete();
+            Alert::toast('Data Berhasil dihapus', 'success');
+            return redirect('/deskripsi-pekerjaan');
+        } catch (\Exception $e) {
+            Alert::toast('Gagal mengubah data', 'error');
+            return back()->withErrors(['error' => 'Gagal menghapus data.']);
+        }
     }
 }

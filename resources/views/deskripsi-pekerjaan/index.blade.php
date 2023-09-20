@@ -18,7 +18,6 @@
                         <th>No</th>
                         <th>Pekerjaan</th>
                         <th>Deksripsi Pekerjaan</th>
-                        <th>Keterangan</th>
                         <th>Catatan</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -29,8 +28,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $p->pengerjaan->no_working_order }}</td>
-                                <td>{{ $p->deskripsi_pekerjaan ?? "-" }}</td>
-                                <td>{{ $p->keterangan }}</td>
+                                <td>{{ $p->deskripsi_pekerjaan ?? '-' }}</td>
                                 <td>{{ $p->catatan }}</td>
                                 <td>{{ $p->status_perpengerjaan }}</td>
 
@@ -56,7 +54,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Update Deskripsi Pekerjaan
                                             </h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
@@ -67,7 +65,7 @@
                                                 @csrf
                                                 @method('PUT')
                                                 <div id="deskripsi-container">
-                                                    <div class="col-md-12">
+                                                    {{-- <div class="col-md-12">
                                                         <!-- Keterangan Input -->
                                                         <label for="keterangan">Keterangan</label>
                                                         <div class="input-group mb-3">
@@ -79,7 +77,7 @@
                                                                 </div>
                                                             @enderror
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="col-md-12">
                                                         <!-- Deskripsi Pengerjaan Input -->
                                                         <label for="deskripsi_pekerjaan">Deskripsi
@@ -118,6 +116,13 @@
                                                                 <option value="selesai"
                                                                     {{ $p->status_perpengerjaan == 'selesai' ? 'selected' : '' }}>
                                                                     Selesai</option>
+                                                                <option value="belum dikerjakan"
+                                                                    {{ $p->status_perpengerjaan == 'belum dikerjakan' ? 'selected' : '' }}>
+                                                                    Belum Dikerjakan</option>
+                                                                <option value="pending"
+                                                                    {{ $p->status_perpengerjaan == 'pending' ? 'selected' : '' }}>
+                                                                    Pending</option>
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -318,7 +323,7 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location = "/alat/delete/" + link;
+                    window.location = "/deskripsi-pekerjaan/delete/" + link;
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',

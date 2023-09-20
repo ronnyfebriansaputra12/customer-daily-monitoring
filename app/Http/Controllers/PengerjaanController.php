@@ -47,6 +47,7 @@ class PengerjaanController extends Controller
             'tanggal_masuk' => 'required|date',
             'status' => 'required|max:255',
             'estimasi_pengerjaan' => 'required',
+            'keterangan'=> 'required'
 
         ]);
 
@@ -81,7 +82,6 @@ class PengerjaanController extends Controller
         // Validasi data input
         $validatedData = $request->validate([
             'deskripsi_pekerjaan' => 'required',
-            'keterangan' => 'required',
             'tanggal_selesai_perpengerjaan' => 'required|date',
             'pengerjaan_id' => 'required',
             'user_id' => 'required',
@@ -91,7 +91,6 @@ class PengerjaanController extends Controller
         // Data yang akan disimpan dalam database
         $dataToInsert = [
             'deskripsi_pekerjaan' => $request->input('deskripsi_pekerjaan'),
-            'keterangan' => $request->input('keterangan'),
             'tanggal_selesai_perpengerjaan' => $request->input('tanggal_selesai_perpengerjaan'),
             'pengerjaan_id' => $request->input('pengerjaan_id'),
             'user_id' => $request->input('user_id'),
